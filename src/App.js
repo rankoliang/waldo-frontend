@@ -8,7 +8,16 @@ function App() {
   return (
     <div className="App">
       <GameNavbar />
-      <ScrollableImage src={waldoPicture} alt="Find Waldo!" />
+      <ScrollableImage
+        src={waldoPicture}
+        alt="Find Waldo!"
+        onClick={({ nativeEvent: { offsetX, offsetY }, target }) => {
+          const { zoom } = target.style;
+          const coords = { x: offsetX / zoom, y: offsetY / zoom };
+
+          console.log(coords);
+        }}
+      />
     </div>
   );
 }

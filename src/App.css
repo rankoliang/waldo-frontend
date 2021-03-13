@@ -1,8 +1,26 @@
+html {
+  overflow: hidden;
+}
+
+body,
+#root,
+.App {
+  height: 100vh;
+}
+
+.App {
+  display: flex;
+  flex-flow: column;
+}
+
 .scrollable-wrapper {
-  overflow-x: auto;
+  overflow: auto;
   position: relative;
+  height: 100%;
+  border: 1px solid red;
 }
 
 .waldo-picture {
-  min-width: 1200px;
+  vertical-align: bottom;
+  position: relative;
 }

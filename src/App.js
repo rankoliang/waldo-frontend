@@ -16,10 +16,10 @@ function App() {
   );
 }
 
-const ScrollableImage = ({ src, alt, ...props }) => {
+const ScrollableImage = ({ src, alt, ismap, ...props }) => {
   return (
     <div className="scrollable-wrapper">
-      <img src={src} alt={alt} {...props} />
+      <img src={src} alt={alt} ismap={ismap} {...props} />
     </div>
   );
 };

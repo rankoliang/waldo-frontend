@@ -6,7 +6,6 @@ const GameNavbar = () => {
       color="light"
       role="navigation"
       aria-label="main navigation"
-      fixed="top"
     >
       <Navbar.Brand>
         <Navbar.Item renderAs="div">Waldo</Navbar.Item>

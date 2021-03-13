@@ -1,7 +1,7 @@
 import 'react-bulma-components/dist/react-bulma-components.min.css';
 import GameNavbar from './components/GameNavbar';
 import ScrollableImage from './components/ScrollableImage';
-import waldoPicture from './images/Waldo.jpg';
+import departmentStoreSrc from './images/department-store.jpg';
 import areas from './areas/areas';
 import './App.css';
 
@@ -10,7 +10,7 @@ function App() {
     <div className="App">
       <GameNavbar />
       <ScrollableImage
-        src={waldoPicture}
+        src={departmentStoreSrc}
         alt="Find Waldo!"
         onClick={({ nativeEvent: { offsetX, offsetY }, target }) => {
           const { zoom } = target.style;

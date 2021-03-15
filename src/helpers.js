@@ -4,7 +4,24 @@ export const between = (number, lowerBound, upperBound) => {
 
 export const fetchLevels = async () => {
   const response = await fetch('/levels');
-  const levels = await response.json();
+  if (response.ok) {
+    const levels = await response.json();
 
-  return levels;
+    return levels;
+  } else {
+    const data = await response.json();
+    const { status } = data;
+
+    let message;
+
+    switch (status) {
+      case 404:
+        message = 'No levels were found.';
+        break;
+      default:
+        message = data.error;
+    }
+
+    return Promise.reject({ status, message });
+  }
 };

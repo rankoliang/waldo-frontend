@@ -1,28 +1,28 @@
+import { useEffect, useState } from 'react';
 import 'react-bulma-components/dist/react-bulma-components.min.css';
 import GameNavbar from './components/GameNavbar';
-import ScrollableImage from './components/ScrollableImage';
-import departmentStoreSrc from './images/department-store.jpg';
-import areas from './areas/areas';
+import Level from './components/Level';
+import { fetchLevels } from './helpers';
 import './App.css';
 
 function App() {
+  const [levels, setLevels] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    fetchLevels().then((levels) => {
+      setLevels(levels);
+      setLoading(false);
+    });
+  }, []);
+
   return (
     <div className="App">
       <GameNavbar />
-      <ScrollableImage
-        src={departmentStoreSrc}
-        alt="Find Waldo!"
-        onClick={({ nativeEvent: { offsetX, offsetY }, target }) => {
-          const { zoom } = target.style;
-
-          const x = offsetX / zoom;
-          const y = offsetY / zoom;
-          const coords = { x, y };
-          console.log(coords);
-
-          console.log(areas.containing(x, y));
-        }}
-      />
+      {levels.slice(0, 1).map((level) => (
+        <Level level={level} loading={loading} key={level.id} />
+      ))}
     </div>
   );
 }

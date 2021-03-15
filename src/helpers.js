@@ -3,7 +3,8 @@ export const between = (number, lowerBound, upperBound) => {
 };
 
 export const fetchLevels = async () => {
-  const response = await fetch('/levels');
+  const response = await fetch('/api/v1/levels');
+
   if (response.ok) {
     const levels = await response.json();
 

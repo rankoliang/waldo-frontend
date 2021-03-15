@@ -11,27 +11,26 @@ const Game = () => {
   const [characters, setCharacters] = useState([]);
 
   useEffect(() => {
-    fetchLevels()
-      .then((levels) => {
+    (async () => {
+      try {
+        const levels = await fetchLevels();
+
         if (levels.length >= 1) {
           setLevel(levels[0]);
+
+          const characters = await fetchLevelCharacters(levels[0]);
+
+          setCharacters(characters);
         } else {
           setErrors({ status: '404', message: 'No levels found' });
         }
-      })
-      .catch((error) => setErrors((state) => ({ ...state, levels: error })))
-      .finally(() => setLoading(false));
+      } catch (error) {
+        setErrors((state) => ({ ...state, [error.field]: error }));
+      } finally {
+        setLoading(false);
+      }
+    })();
   }, []);
-
-  useEffect(() => {
-    if (level) {
-      fetchLevelCharacters(level)
-        .then(setCharacters)
-        .catch((error) =>
-          setErrors((state) => ({ ...state, characters: error }))
-        );
-    }
-  }, [level]);
 
   return (
     <>

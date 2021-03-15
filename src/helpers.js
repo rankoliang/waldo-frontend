@@ -6,7 +6,7 @@ export const between = (number, lowerBound, upperBound) => {
 
 const createApiFetch = (getPath, messages = {}) => {
   return async (...args) => {
-    const response = await fetch(path.join('api/v1', getPath(...args)));
+    const response = await fetch(path.join('api/v1/', getPath(...args)));
 
     if (response.ok) {
       return await response.json();
@@ -34,3 +34,7 @@ const rejectResponse = async (response, messages = {}) => {
 export const fetchLevels = createApiFetch(() => 'levels', {
   404: 'No levels were found.',
 });
+
+export const fetchLevelCharacters = createApiFetch(
+  (level) => `levels/${level.id}/characters`
+);

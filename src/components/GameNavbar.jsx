@@ -1,16 +1,14 @@
 import { Navbar } from 'react-bulma-components';
 
-const GameNavbar = () => {
+const GameNavbar = ({ characters = [] }) => {
   return (
-    <Navbar
-      color="light"
-      role="navigation"
-      aria-label="main navigation"
-    >
+    <Navbar color="light" role="navigation" aria-label="main navigation">
       <Navbar.Brand>
-        <Navbar.Item renderAs="div">Waldo</Navbar.Item>
-        <Navbar.Item renderAs="div">Wizard</Navbar.Item>
-        <Navbar.Item renderAs="div">Wilma</Navbar.Item>
+        {characters.map(({ id, name }) => (
+          <Navbar.Item renderAs="div" key={id}>
+            {name}
+          </Navbar.Item>
+        ))}
         <Navbar.Item>Leaderboard</Navbar.Item>
       </Navbar.Brand>
     </Navbar>

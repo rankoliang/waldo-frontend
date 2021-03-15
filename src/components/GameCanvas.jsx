@@ -1,25 +1,12 @@
-import { useEffect, useState } from 'react';
 import Level from './Level';
-import { fetchLevels } from '../helpers';
 import { Container, Hero, Heading } from 'react-bulma-components';
+import { Progress } from 'react-bulma-components';
 import 'react-bulma-components/dist/react-bulma-components.min.css';
 
-const GameCanvas = () => {
-  const [levels, setLevels] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    setLoading(true);
-    fetchLevels()
-      .then((levels) => {
-        setLevels(levels);
-        setLoading(false);
-      })
-      .catch(setError);
-  }, []);
-
-  if (error) {
+const GameCanvas = ({ level, loading, error }) => {
+  if (loading) {
+    return <Progress />;
+  } else if (error) {
     return (
       <Hero color="danger">
         <Hero.Body>
@@ -33,9 +20,7 @@ const GameCanvas = () => {
       </Hero>
     );
   } else {
-    return levels
-      .slice(0, 1)
-      .map((level) => <Level level={level} loading={loading} key={level.id} />);
+    return <Level level={level} />;
   }
 };
 export default GameCanvas;

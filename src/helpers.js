@@ -1,28 +1,36 @@
+import path from 'path';
+
 export const between = (number, lowerBound, upperBound) => {
   return number > lowerBound && number < upperBound;
 };
 
-export const fetchLevels = async () => {
-  const response = await fetch('/api/v1/levels');
+const createApiFetch = (getPath, messages = {}) => {
+  return async (...args) => {
+    const response = await fetch(path.join('api/v1', getPath(...args)));
 
-  if (response.ok) {
-    const levels = await response.json();
-
-    return levels;
-  } else {
-    const data = await response.json();
-    const { status } = data;
-
-    let message;
-
-    switch (status) {
-      case 404:
-        message = 'No levels were found.';
-        break;
-      default:
-        message = data.error;
+    if (response.ok) {
+      return await response.json();
+    } else {
+      return rejectResponse(response, messages);
     }
-
-    return Promise.reject({ status, message });
-  }
+  };
 };
+
+const rejectResponse = async (response, messages = {}) => {
+  const data = await response.json();
+  const { status } = data;
+
+  let message;
+
+  if (messages[status]) {
+    message = messages[status];
+  } else {
+    message = data.error;
+  }
+
+  return Promise.reject({ status, message });
+};
+
+export const fetchLevels = createApiFetch(() => 'levels', {
+  404: 'No levels were found.',
+});

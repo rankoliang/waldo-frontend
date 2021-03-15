@@ -3,17 +3,17 @@ import { Container, Hero, Heading } from 'react-bulma-components';
 import { Progress } from 'react-bulma-components';
 import 'react-bulma-components/dist/react-bulma-components.min.css';
 
-const GameCanvas = ({ level, loading, error }) => {
+const GameCanvas = ({ level, loading, errors }) => {
   if (loading) {
     return <Progress />;
-  } else if (error) {
+  } else if (errors.levels) {
     return (
       <Hero color="danger">
         <Hero.Body>
           <Container>
-            <Heading>{error.status}</Heading>
+            <Heading>{errors.levels.status}</Heading>
             <Heading subtitle size={4}>
-              {error.message}
+              {errors.levels.message}
             </Heading>
           </Container>
         </Hero.Body>

@@ -1,9 +1,9 @@
-import GameNavbar from './GameNavbar';
 import GameCanvas from './GameCanvas';
 import ErrorBoundary from './ErrorBoundary';
 import { useEffect, useState } from 'react';
 import { fetchLevels, fetchLevelCharacters, ResponseError } from '../helpers';
 import 'react-bulma-components/dist/react-bulma-components.min.css';
+import { Navbar } from 'react-bulma-components';
 
 const Game = () => {
   const [loading, setLoading] = useState(true);
@@ -37,11 +37,25 @@ const Game = () => {
 
   return (
     <>
-      <GameNavbar characters={characters} />
       <ErrorBoundary error={error}>
         <GameCanvas level={level} loading={loading} />
       </ErrorBoundary>
+      <Characters characters={characters} />
     </>
+  );
+};
+
+const Characters = ({ characters = [] }) => {
+  return (
+    <Navbar color="dark" role="navigation" aria-label="main navigation">
+      <Navbar.Brand>
+        {characters.map(({ id, name }) => (
+          <Navbar.Item renderAs="div" key={id}>
+            {name}
+          </Navbar.Item>
+        ))}
+      </Navbar.Brand>
+    </Navbar>
   );
 };
 

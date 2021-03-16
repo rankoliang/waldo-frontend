@@ -1,14 +1,13 @@
 import { Navbar } from 'react-bulma-components';
+import { Link } from 'react-router-dom';
 
-const GameNavbar = ({ characters = [] }) => {
+const GameNavbar = () => {
   return (
-    <Navbar color="light" role="navigation" aria-label="main navigation">
+    <Navbar color="dark" role="navigation" aria-label="main navigation">
       <Navbar.Brand>
-        {characters.map(({ id, name }) => (
-          <Navbar.Item renderAs="div" key={id}>
-            {name}
-          </Navbar.Item>
-        ))}
+        <Navbar.Item renderAs={Link} to="/">
+          Home
+        </Navbar.Item>
         <Navbar.Item>Leaderboard</Navbar.Item>
       </Navbar.Brand>
     </Navbar>

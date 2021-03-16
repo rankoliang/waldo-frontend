@@ -1,9 +1,9 @@
 import 'react-bulma-components/dist/react-bulma-components.min.css';
 import Game from './components/Game';
 import SiteNavbar from './components/SiteNavbar';
+import Levels from './components/Levels';
 import './App.css';
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
-import { Button } from 'react-bulma-components';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 function App() {
   return (
@@ -29,14 +29,6 @@ const Routes = () => {
         </Route>
       </Switch>
     </BrowserRouter>
-  );
-};
-
-const Levels = () => {
-  return (
-    <Button renderAs={Link} to="/level">
-      Game
-    </Button>
   );
 };
 

@@ -1,6 +1,6 @@
 import 'react-bulma-components/dist/react-bulma-components.min.css';
 import Game from './components/Game';
-import GameNavbar from './components/GameNavbar';
+import SiteNavbar from './components/SiteNavbar';
 import './App.css';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import { Button } from 'react-bulma-components';
@@ -16,7 +16,7 @@ function App() {
 const Routes = () => {
   return (
     <BrowserRouter>
-      <GameNavbar />
+      <SiteNavbar />
       <Switch>
         <Route exact path="/">
           <Levels />

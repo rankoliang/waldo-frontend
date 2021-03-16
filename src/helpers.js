@@ -4,7 +4,7 @@ export const between = (number, lowerBound, upperBound) => {
   return number > lowerBound && number < upperBound;
 };
 
-const createApiFetch = (field, getPath, messages = {}) => {
+const createApiFetch = ({ field, getPath, messages = {} }) => {
   return async (...args) => {
     const response = await fetch(path.join('api/v1/', getPath(...args)));
 
@@ -16,26 +16,42 @@ const createApiFetch = (field, getPath, messages = {}) => {
   };
 };
 
-const rejectResponse = async (response, field, messages = {}) => {
-  const data = await response.json();
-  const { status } = data;
-
-  let message;
-
-  if (messages[status]) {
-    message = messages[status];
-  } else {
-    message = data.error;
+export class ResponseError extends Error {
+  constructor(response) {
+    super(response.statusText);
+    this.code = `${response.status} Status`;
   }
+}
 
-  return Promise.reject({ status, message, field });
+const rejectResponse = async (response, messages = {}) => {
+  const err = new ResponseError(response);
+
+  try {
+    err.message = await getErrorMessage(response, messages);
+  } finally {
+    return Promise.reject(err);
+  }
 };
 
-export const fetchLevels = createApiFetch('levels', () => 'levels', {
-  404: 'No levels were found.',
+const getErrorMessage = async (response, messages = {}) => {
+  const { status } = response;
+
+  if (messages[status]) {
+    return messages[status];
+  } else {
+    return (await response.json()).error;
+  }
+};
+
+export const fetchLevels = createApiFetch({
+  field: 'levels',
+  getPath: () => 'levels',
+  messages: {
+    404: 'No levels were found.',
+  },
 });
 
-export const fetchLevelCharacters = createApiFetch(
-  'characters',
-  (level) => `levels/${level.id}/characters`
-);
+export const fetchLevelCharacters = createApiFetch({
+  field: 'characters',
+  getPath: (level) => `levels/${level.id}/characters`,
+});

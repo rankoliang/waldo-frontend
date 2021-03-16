@@ -1,12 +1,14 @@
+import { Component } from 'react';
 import GameNavbar from './GameNavbar';
 import GameCanvas from './GameCanvas';
 import { useEffect, useState } from 'react';
-import { fetchLevels, fetchLevelCharacters } from '../helpers';
+import { fetchLevels, fetchLevelCharacters, ResponseError } from '../helpers';
 import 'react-bulma-components/dist/react-bulma-components.min.css';
+import { Container, Hero, Heading } from 'react-bulma-components';
 
 const Game = () => {
   const [loading, setLoading] = useState(true);
-  const [errors, setErrors] = useState({ levels: null, characters: null });
+  const [error, setError] = useState(null);
   const [level, setLevel] = useState(null);
   const [characters, setCharacters] = useState([]);
 
@@ -22,10 +24,12 @@ const Game = () => {
 
           setCharacters(characters);
         } else {
-          setErrors({ status: '404', message: 'No levels found' });
+          setError(
+            new ResponseError({ status: 404, statusText: 'No levels found' })
+          );
         }
-      } catch (error) {
-        setErrors((state) => ({ ...state, [error.field]: error }));
+      } catch (err) {
+        setError(err);
       } finally {
         setLoading(false);
       }
@@ -35,9 +39,38 @@ const Game = () => {
   return (
     <>
       <GameNavbar characters={characters} />
-      <GameCanvas level={level} loading={loading} errors={errors} />
+      <ErrorBoundary error={error}>
+        <GameCanvas level={level} loading={loading} />
+      </ErrorBoundary>
     </>
   );
 };
+
+class ErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    if (this.props.error) {
+      return (
+        <>
+          <Hero color="danger">
+            <Hero.Body>
+              <Container>
+                <Heading>{this.props.error.code}</Heading>
+                <Heading subtitle size={4}>
+                  {this.props.error.message}
+                </Heading>
+              </Container>
+            </Hero.Body>
+          </Hero>
+        </>
+      );
+    }
+
+    return this.props.children;
+  }
+}
 
 export default Game;

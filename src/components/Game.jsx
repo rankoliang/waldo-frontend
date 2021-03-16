@@ -1,10 +1,9 @@
-import { Component } from 'react';
 import GameNavbar from './GameNavbar';
 import GameCanvas from './GameCanvas';
+import ErrorBoundary from './ErrorBoundary';
 import { useEffect, useState } from 'react';
 import { fetchLevels, fetchLevelCharacters, ResponseError } from '../helpers';
 import 'react-bulma-components/dist/react-bulma-components.min.css';
-import { Container, Hero, Heading } from 'react-bulma-components';
 
 const Game = () => {
   const [loading, setLoading] = useState(true);
@@ -45,32 +44,5 @@ const Game = () => {
     </>
   );
 };
-
-class ErrorBoundary extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    if (this.props.error) {
-      return (
-        <>
-          <Hero color="danger">
-            <Hero.Body>
-              <Container>
-                <Heading>{this.props.error.code}</Heading>
-                <Heading subtitle size={4}>
-                  {this.props.error.message}
-                </Heading>
-              </Container>
-            </Hero.Body>
-          </Hero>
-        </>
-      );
-    }
-
-    return this.props.children;
-  }
-}
 
 export default Game;

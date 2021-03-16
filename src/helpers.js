@@ -4,14 +4,14 @@ export const between = (number, lowerBound, upperBound) => {
   return number > lowerBound && number < upperBound;
 };
 
-const createApiFetch = ({ field, getPath, messages = {} }) => {
+const createApiFetch = ({ getPath, messages = {} }) => {
   return async (...args) => {
-    const response = await fetch(path.join('api/v1/', getPath(...args)));
+    const response = await fetch(path.join('/api/v1/', getPath(...args)));
 
     if (response.ok) {
       return await response.json();
     } else {
-      return rejectResponse(response, field, messages);
+      return rejectResponse(response, messages);
     }
   };
 };
@@ -44,14 +44,14 @@ const getErrorMessage = async (response, messages = {}) => {
 };
 
 export const fetchLevels = createApiFetch({
-  field: 'levels',
-  getPath: () => 'levels',
+  getPath: () => '/levels',
   messages: {
     404: 'No levels were found.',
   },
 });
 
+export const fetchLevel = createApiFetch({ getPath: (id) => `/levels/${id}` });
+
 export const fetchLevelCharacters = createApiFetch({
-  field: 'characters',
-  getPath: (level) => `levels/${level.id}/characters`,
+  getPath: (level) => `/levels/${level.id}/characters`,
 });

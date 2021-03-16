@@ -39,8 +39,8 @@ const Game = () => {
     <>
       <ErrorBoundary error={error}>
         <GameCanvas level={level} loading={loading} />
+        <Characters characters={characters} />
       </ErrorBoundary>
-      <Characters characters={characters} />
     </>
   );
 };

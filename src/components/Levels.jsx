@@ -22,7 +22,7 @@ const useLevels = () => {
 };
 
 const Levels = () => {
-  const { levels, loading, error } = useLevels();
+  const { levels, error } = useLevels();
 
   return (
     <Container>
@@ -35,7 +35,7 @@ const Levels = () => {
   );
 };
 
-const LevelCard = ({ level: { image_path, title } }) => {
+const LevelCard = ({ level: { id, title, image_path } }) => {
   return (
     <Card>
       <Card.Image src={image_path}></Card.Image>
@@ -43,7 +43,11 @@ const LevelCard = ({ level: { image_path, title } }) => {
         <Card.Header.Title className="is-centered">{title}</Card.Header.Title>
       </Card.Header>
       <Card.Footer>
-        <Card.Footer.Item renderAs={ButtonLink} color="primary" to="/level">
+        <Card.Footer.Item
+          renderAs={ButtonLink}
+          color="primary"
+          to={`/levels/${id}`}
+        >
           Play
         </Card.Footer.Item>
       </Card.Footer>

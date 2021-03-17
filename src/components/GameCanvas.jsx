@@ -1,12 +1,10 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import ScrollableImage from './ScrollableImage';
 import CharactersInterface from './CharactersInterface';
 import { fetchFound } from '../helpers';
 import ErrorBoundary from './ErrorBoundary';
-import {
-  useSelectedCharacter,
-  useCharactersDispatch,
-} from '../features/characters/CharactersContext';
+import { useSelectedCharacter } from '../features/characters/CharactersHooks';
 import { characterFound } from '../features/characters/charactersSlice';
 
 const GameCanvas = ({ level, level: { image_path }, ...props }) => {
@@ -14,7 +12,7 @@ const GameCanvas = ({ level, level: { image_path }, ...props }) => {
   const [successes, setSuccesses] = useState([]);
   const [failures, setFailures] = useState([]);
   const selectedCharacter = useSelectedCharacter();
-  const dispatch = useCharactersDispatch();
+  const dispatch = useDispatch();
 
   const handleClick = ({ nativeEvent: { offsetX, offsetY }, target }) => {
     const { zoom } = target.style;

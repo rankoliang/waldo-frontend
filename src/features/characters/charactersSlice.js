@@ -32,6 +32,12 @@ export const {
   characterFound,
 } = charactersSlice.actions;
 
+export const selectCharacters = (state) => state.characters.all;
+
+export const selectCharacterSelected = (state) => state.characters.selected;
+
+export const selectCharactersFound = (state) => state.characters.found;
+
 const initialFound = (characters) => {
   return Object.fromEntries(
     characters.map((character) => [character.id, false])

@@ -26,4 +26,8 @@ export const useCharactersDispatch = () => {
   return useContext(CharactersContext).dispatch;
 };
 
+export const useCharactersFound = () => {
+  return useContext(CharactersContext).state.found;
+};
+
 export default CharactersContext;

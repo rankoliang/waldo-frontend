@@ -3,11 +3,16 @@ import ScrollableImage from './ScrollableImage';
 import CharactersInterface from './CharactersInterface';
 import { fetchFound } from '../helpers';
 import ErrorBoundary from './ErrorBoundary';
-import { useSelectedCharacter } from '../features/characters/CharactersContext';
+import {
+  useSelectedCharacter,
+  useCharactersDispatch,
+} from '../features/characters/CharactersContext';
+import { characterFound } from '../features/characters/charactersSlice';
 
 const GameCanvas = ({ level, level: { image_path }, ...props }) => {
   const [error, setError] = useState(null);
   const selectedCharacter = useSelectedCharacter();
+  const dispatch = useCharactersDispatch();
 
   const handleClick = ({ nativeEvent: { offsetX, offsetY }, target }) => {
     const { zoom } = target.style;
@@ -18,7 +23,9 @@ const GameCanvas = ({ level, level: { image_path }, ...props }) => {
 
     fetchFound({ level, character: selectedCharacter, coords })
       .then(({ found }) => {
-        console.log({ character: selectedCharacter.name, found });
+        if (found) {
+          dispatch(characterFound(selectedCharacter));
+        }
       })
       .catch(setError);
   };

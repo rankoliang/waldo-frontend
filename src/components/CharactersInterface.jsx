@@ -4,11 +4,13 @@ import {
   useCharacters,
   useSelectedCharacter,
   useCharactersDispatch,
+  useCharactersFound,
 } from '../features/characters/CharactersContext';
 
 const CharactersInterface = () => {
   const characters = useCharacters();
   const selectedCharacter = useSelectedCharacter();
+  const charactersFound = useCharactersFound();
   const dispatch = useCharactersDispatch();
 
   return (
@@ -21,6 +23,7 @@ const CharactersInterface = () => {
             onClick={() => {
               dispatch(characterSelected(character));
             }}
+            textColor={charactersFound[character.id] ? 'danger' : null}
           >
             {character.name}
           </Navbar.Item>

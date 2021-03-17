@@ -1,37 +1,4 @@
-const charactersReducer = (state, action) => {
-  switch (action.type) {
-    case 'characters/set':
-      const all = action.payload;
-      const selected = all?.length >= 1 ? all[0] : null;
-      const found = initialFound(all);
-
-      return { ...state, all, selected, found };
-    case 'characters/select':
-      return { ...state, selected: action.payload };
-    case 'characters/found':
-      return { ...state, found: { ...state.found, [action.payload.id]: true } };
-    default:
-      return state;
-  }
-};
-
-const initialFound = (characters) => {
-  return Object.fromEntries(
-    characters.map((character) => [character.id, false])
-  );
-};
-
-export const charactersSet = (characters) => {
-  return { type: 'characters/set', payload: characters };
-};
-
-export const characterSelected = (character) => {
-  return { type: 'characters/select', payload: character };
-};
-
-export const characterFound = (character) => {
-  return { type: 'characters/found', payload: character };
-};
+import { createSlice } from '@reduxjs/toolkit';
 
 export const getCharactersInitialState = () => ({
   all: [],
@@ -39,4 +6,34 @@ export const getCharactersInitialState = () => ({
   found: {},
 });
 
-export default charactersReducer;
+const charactersSlice = createSlice({
+  name: 'characters',
+  initialState: getCharactersInitialState(),
+  reducers: {
+    charactersSet: (state, action) => {
+      state.all = action.payload;
+      state.selected = state.all.length >= 1 ? state.all[0] : null;
+      state.found = initialFound(state.all);
+    },
+    characterSelected: (state, action) => {
+      state.selected = action.payload;
+    },
+    characterFound: (state, action) => {
+      state.found[action.payload.id] = true;
+    },
+  },
+});
+
+export default charactersSlice.reducer;
+
+export const {
+  charactersSet,
+  characterSelected,
+  characterFound,
+} = charactersSlice.actions;
+
+const initialFound = (characters) => {
+  return Object.fromEntries(
+    characters.map((character) => [character.id, false])
+  );
+};

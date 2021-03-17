@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import searchesReducer, {
-  characterFound,
+  searchSuccessful,
   searchFailed,
   selectSuccessfulSearches,
   selectFailedSearches,
@@ -16,10 +16,10 @@ describe('searchesSlice', () => {
     });
   });
 
-  describe('characterFound', () => {
+  describe('searchSuccessful', () => {
     it('adds an entry to the successes state', () => {
       store.dispatch(
-        characterFound({
+        searchSuccessful({
           character: { id: 1, name: 'Wally' },
           coords: { x: 5, y: 5 },
         })

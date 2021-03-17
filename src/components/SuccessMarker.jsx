@@ -1,4 +1,7 @@
+import { useSelector } from 'react-redux';
+import { nanoid } from '@reduxjs/toolkit';
 import { CgSearchFound } from 'react-icons/cg';
+import { selectSuccessfulSearches } from '../features/searches/searchesSlice';
 
 const SuccessMarker = ({
   coord: { x, y },
@@ -20,3 +23,11 @@ const SuccessMarker = ({
 };
 
 export default SuccessMarker;
+
+export const SuccessMarkers = ({ zoom }) => {
+  const successes = useSelector(selectSuccessfulSearches);
+
+  return successes.map((coord) => (
+    <SuccessMarker coord={coord} key={nanoid()} zoom={zoom} />
+  ));
+};

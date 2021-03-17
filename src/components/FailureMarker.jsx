@@ -1,4 +1,7 @@
+import { nanoid } from '@reduxjs/toolkit';
 import { ImCross } from 'react-icons/im';
+import { useSelector } from 'react-redux';
+import { selectFailedSearches } from '../features/searches/searchesSlice';
 
 const FailureMarker = ({ coord: { x, y }, height = 75, width = 75, zoom }) => {
   return (
@@ -12,6 +15,14 @@ const FailureMarker = ({ coord: { x, y }, height = 75, width = 75, zoom }) => {
       }}
     />
   );
+};
+
+export const FailureMarkers = ({ zoom }) => {
+  const failures = useSelector(selectFailedSearches);
+
+  return failures.map((coord) => (
+    <FailureMarker coord={coord} key={nanoid()} zoom={zoom} />
+  ));
 };
 
 export default FailureMarker;

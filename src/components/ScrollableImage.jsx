@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import SuccessMarker from './SuccessMarker';
-import FailureMarker from './FailureMarker';
+import { SuccessMarkers } from './SuccessMarker';
+import { FailureMarkers } from './FailureMarker';
 
 const useZoom = (height, width, wrapper) => {
   const [zoom, setZoom] = useState(1);
@@ -22,14 +22,7 @@ const useZoom = (height, width, wrapper) => {
   return zoom;
 };
 
-const ScrollableImage = ({
-  src,
-  alt,
-  children,
-  successes = [],
-  failures = [],
-  ...props
-}) => {
+const ScrollableImage = ({ src, alt, children, ...props }) => {
   const wrapperEl = useRef(null);
 
   const [dimensions, setDimensions] = useState({ height: 0, width: 0 });
@@ -55,20 +48,8 @@ const ScrollableImage = ({
         }}
         {...props}
       />
-      {successes.map((coord) => (
-        <SuccessMarker
-          coord={coord}
-          key={String(Object.values(coord))}
-          zoom={zoom}
-        />
-      ))}
-      {failures.map((coord) => (
-        <FailureMarker
-          coord={coord}
-          key={String(Object.values(coord))}
-          zoom={zoom}
-        />
-      ))}
+      <SuccessMarkers zoom={zoom} />
+      <FailureMarkers zoom={zoom} />
     </div>
   );
 };

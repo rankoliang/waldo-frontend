@@ -11,6 +11,8 @@ import { characterFound } from '../features/characters/charactersSlice';
 
 const GameCanvas = ({ level, level: { image_path }, ...props }) => {
   const [error, setError] = useState(null);
+  const [successes, setSuccesses] = useState([]);
+  const [failures, setFailures] = useState([]);
   const selectedCharacter = useSelectedCharacter();
   const dispatch = useCharactersDispatch();
 
@@ -25,6 +27,9 @@ const GameCanvas = ({ level, level: { image_path }, ...props }) => {
       .then(({ found }) => {
         if (found) {
           dispatch(characterFound(selectedCharacter));
+          setSuccesses([...successes, { x, y }]);
+        } else {
+          setFailures([...failures, { x, y }]);
         }
       })
       .catch(setError);
@@ -36,8 +41,10 @@ const GameCanvas = ({ level, level: { image_path }, ...props }) => {
         src={image_path}
         alt="Find Waldo!"
         onClick={handleClick}
+        successes={successes}
+        failures={failures}
         {...props}
-      />
+      ></ScrollableImage>
       <CharactersInterface />
     </ErrorBoundary>
   );

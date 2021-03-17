@@ -18,3 +18,17 @@ body,
   position: relative;
   height: 100%;
 }
+
+.marker {
+  position: absolute;
+}
+
+.marker-success {
+  color: #005500;
+  z-index: 1;
+}
+
+.marker-failure {
+  pointer-events: none;
+  color: #aa0000;
+}

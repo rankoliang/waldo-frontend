@@ -3,15 +3,11 @@ import ScrollableImage from './ScrollableImage';
 import CharactersInterface from './CharactersInterface';
 import { fetchFound } from '../helpers';
 import ErrorBoundary from './ErrorBoundary';
+import { useSelectedCharacter } from '../features/characters/CharactersContext';
 
-const GameCanvas = ({
-  level,
-  level: { image_path },
-  characters = [],
-  ...props
-}) => {
+const GameCanvas = ({ level, level: { image_path }, ...props }) => {
   const [error, setError] = useState(null);
-  const [selectedCharacter, selectCharacter] = useState(characters[0]);
+  const selectedCharacter = useSelectedCharacter();
 
   const handleClick = ({ nativeEvent: { offsetX, offsetY }, target }) => {
     const { zoom } = target.style;
@@ -35,11 +31,7 @@ const GameCanvas = ({
         onClick={handleClick}
         {...props}
       />
-      <CharactersInterface
-        selectedCharacter={selectedCharacter}
-        characters={characters}
-        selectCharacter={selectCharacter}
-      />
+      <CharactersInterface />
     </ErrorBoundary>
   );
 };

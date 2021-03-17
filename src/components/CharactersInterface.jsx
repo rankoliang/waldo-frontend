@@ -1,10 +1,16 @@
 import { Navbar } from 'react-bulma-components';
+import { characterSelected } from '../features/characters/charactersSlice';
+import {
+  useCharacters,
+  useSelectedCharacter,
+  useCharactersDispatch,
+} from '../features/characters/CharactersContext';
 
-const CharactersInterface = ({
-  characters = [],
-  selectCharacter,
-  selectedCharacter,
-}) => {
+const CharactersInterface = () => {
+  const characters = useCharacters();
+  const selectedCharacter = useSelectedCharacter();
+  const dispatch = useCharactersDispatch();
+
   return (
     <Navbar color="dark" role="navigation" aria-label="main navigation">
       <Navbar.Brand>
@@ -13,7 +19,7 @@ const CharactersInterface = ({
             key={character.id}
             active={selectedCharacter === character}
             onClick={() => {
-              selectCharacter(character);
+              dispatch(characterSelected(character));
             }}
           >
             {character.name}

@@ -4,6 +4,10 @@ import { useParams } from 'react-router-dom';
 import GameCanvas from './GameCanvas';
 import ErrorBoundary from './ErrorBoundary';
 import LoadingHandler from './LoadingHandler';
+import CharactersContext, {
+  useCharactersStore,
+} from '../features/characters/CharactersContext';
+import { charactersSet } from '../features/characters/charactersSlice';
 
 const Level = () => {
   const { levelId } = useParams();
@@ -11,7 +15,8 @@ const Level = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [level, setLevel] = useState(null);
-  const [characters, setCharacters] = useState([]);
+  const charactersStore = useCharactersStore();
+  const { dispatch } = charactersStore;
 
   useEffect(() => {
     fetchLevel(levelId)
@@ -20,17 +25,21 @@ const Level = () => {
         return level;
       })
       .then(fetchLevelCharacters)
-      .then(setCharacters)
+      .then((characters) => {
+        dispatch(charactersSet(characters));
+      })
       .catch(setError)
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [levelId, dispatch]);
 
   return (
     <ErrorBoundary error={error}>
       <LoadingHandler loading={loading}>
-        <GameCanvas level={level} characters={characters} />
+        <CharactersContext.Provider value={charactersStore}>
+          <GameCanvas level={level} />
+        </CharactersContext.Provider>
       </LoadingHandler>
     </ErrorBoundary>
   );

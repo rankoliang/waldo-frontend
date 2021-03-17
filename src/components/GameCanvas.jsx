@@ -1,35 +1,46 @@
+import { useState } from 'react';
 import ScrollableImage from './ScrollableImage';
 import CharactersInterface from './CharactersInterface';
-import areas from '../areas/areas';
-import 'react-bulma-components/dist/react-bulma-components.min.css';
+import { fetchFound } from '../helpers';
+import ErrorBoundary from './ErrorBoundary';
 
 const GameCanvas = ({
+  level,
   level: { image_path },
   characters = [],
-  error = null,
   ...props
 }) => {
+  const [error, setError] = useState(null);
+  const [selectedCharacter, selectCharacter] = useState(characters[0]);
+
   const handleClick = ({ nativeEvent: { offsetX, offsetY }, target }) => {
     const { zoom } = target.style;
 
     const x = offsetX / zoom;
     const y = offsetY / zoom;
     const coords = { x, y };
-    console.log(coords);
 
-    console.log(areas.containing(x, y));
+    fetchFound({ level, character: selectedCharacter, coords })
+      .then(({ found }) => {
+        console.log({ character: selectedCharacter.name, found });
+      })
+      .catch(setError);
   };
 
   return (
-    <>
+    <ErrorBoundary error={error}>
       <ScrollableImage
         src={image_path}
         alt="Find Waldo!"
         onClick={handleClick}
         {...props}
       />
-      <CharactersInterface characters={characters} />
-    </>
+      <CharactersInterface
+        selectedCharacter={selectedCharacter}
+        characters={characters}
+        selectCharacter={selectCharacter}
+      />
+    </ErrorBoundary>
   );
 };
 

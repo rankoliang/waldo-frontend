@@ -9,7 +9,7 @@ const createApiFetch = ({ getPath, messages = {} }) => {
     const response = await fetch(path.join('/api/v1/', getPath(...args)));
 
     if (response.ok) {
-      return await response.json();
+      return response.json();
     } else {
       return rejectResponse(response, messages);
     }
@@ -54,4 +54,9 @@ export const fetchLevel = createApiFetch({ getPath: (id) => `/levels/${id}` });
 
 export const fetchLevelCharacters = createApiFetch({
   getPath: (level) => `/levels/${level.id}/characters`,
+});
+
+export const fetchFound = createApiFetch({
+  getPath: ({ level, character, coords }) =>
+    `/levels/${level.id}/characters/${character.id}/search?x=${coords.x}&y=${coords.y}`,
 });

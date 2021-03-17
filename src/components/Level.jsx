@@ -1,26 +1,40 @@
-import ScrollableImage from './ScrollableImage';
-import areas from '../areas/areas';
+import { fetchLevel, fetchLevelCharacters } from '../helpers';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import GameCanvas from './GameCanvas';
+import ErrorBoundary from './ErrorBoundary';
+import LoadingHandler from './LoadingHandler';
 
-const Level = ({ level: { image_path }, loading = false, ...props }) => {
-  const handleClick = ({ nativeEvent: { offsetX, offsetY }, target }) => {
-    const { zoom } = target.style;
+const Level = () => {
+  const { levelId } = useParams();
 
-    const x = offsetX / zoom;
-    const y = offsetY / zoom;
-    const coords = { x, y };
-    console.log(coords);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [level, setLevel] = useState(null);
+  const [characters, setCharacters] = useState([]);
 
-    console.log(areas.containing(x, y));
-  };
+  useEffect(() => {
+    fetchLevel(levelId)
+      .then(({ level }) => {
+        setLevel(level);
+        return level;
+      })
+      .then(fetchLevelCharacters)
+      .then(setCharacters)
+      .catch(setError)
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
 
   return (
-    <ScrollableImage
-      src={image_path}
-      alt="Find Waldo!"
-      onClick={handleClick}
-      {...props}
-    />
+    <ErrorBoundary error={error}>
+      <LoadingHandler loading={loading}>
+        <GameCanvas level={level} characters={characters} />
+      </LoadingHandler>
+    </ErrorBoundary>
   );
 };
 
 export default Level;
+export { Level };

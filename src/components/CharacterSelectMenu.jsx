@@ -1,8 +1,10 @@
 import { useSelector } from 'react-redux';
 import { selectCharactersNotFound } from '../features/characters/charactersSlice';
+import { selectZoom } from '../features/game/gameSlice';
 
 const CharacterSelectMenu = ({ menu }) => {
   const undiscoveredCharacters = useSelector(selectCharactersNotFound);
+  const zoom = useSelector(selectZoom);
 
   if (!menu.visible) return null;
 

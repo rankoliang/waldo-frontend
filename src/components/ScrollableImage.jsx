@@ -1,16 +1,20 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectZoom, zoomSet } from '../features/game/gameSlice';
 import { SuccessMarkers } from './SuccessMarker';
 import { FailureMarkers } from './FailureMarker';
 
 const useZoom = (height, width, wrapper) => {
-  const [zoom, setZoom] = useState(1);
+  const dispatch = useDispatch();
+  const zoom = useSelector(selectZoom);
 
   const updateZoom = useCallback(() => {
     if (height === 0 || width === 0 || wrapper === null) return;
 
     const fullWidthZoom = wrapper.clientWidth / width;
     const fullHeightZoom = wrapper.clientHeight / height;
-    setZoom(Math.max(fullWidthZoom, fullHeightZoom));
+
+    dispatch(zoomSet(Math.max(fullWidthZoom, fullHeightZoom)));
   }, [width, height, wrapper]);
 
   useEffect(updateZoom);

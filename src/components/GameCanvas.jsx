@@ -31,11 +31,11 @@ const GameCanvas = ({ level, level: { image_path }, ...props }) => {
     coordinates: null,
   });
 
-  const handleClick = ({ nativeEvent: { offsetX, offsetY } }) => {
+  const handleClick = ({ nativeEvent: { offsetX: x, offsetY: y } }) => {
     if (menu.visible) {
       menuDispatch(menuHidden());
     } else {
-      menuDispatch(menuShown({ coords: { x: offsetX, y: offsetY } }));
+      menuDispatch(menuShown({ coords: { x, y } }));
     }
   };
 

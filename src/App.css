@@ -32,3 +32,8 @@ body,
   pointer-events: none;
   color: #aa0000;
 }
+
+.character-select-menu {
+  background: white;
+  position: absolute;
+}

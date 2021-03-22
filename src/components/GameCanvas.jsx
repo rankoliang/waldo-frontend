@@ -1,22 +1,42 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useReducer, useState } from 'react';
 import ScrollableImage from './ScrollableImage';
 import CharactersInterface from './CharactersInterface';
 import ErrorBoundary from './ErrorBoundary';
-import { searchForSelectedCharacter } from '../features/searches/searchesSlice';
+import CharacterSelectMenu from './CharacterSelectMenu';
+
+const menuShown = ({ coords }) => {
+  return { type: 'menu/show', payload: { coords } };
+};
+
+const menuHidden = () => {
+  return { type: 'menu/hide' };
+};
+
+const menuReducer = (state, action) => {
+  switch (action.type) {
+    case 'menu/show':
+      const { coords } = action.payload;
+      return { ...state, coords, visible: true };
+    case 'menu/hide':
+      return { ...state, coordinates: null, visible: false };
+    default:
+      return state;
+  }
+};
 
 const GameCanvas = ({ level, level: { image_path }, ...props }) => {
   const [error, setError] = useState(null);
-  const dispatch = useDispatch();
+  const [menu, menuDispatch] = useReducer(menuReducer, {
+    visible: false,
+    coordinates: null,
+  });
 
-  const handleClick = ({ nativeEvent: { offsetX, offsetY }, target }) => {
-    const { zoom } = target.style;
-
-    const x = offsetX / zoom;
-    const y = offsetY / zoom;
-    const coords = { x, y };
-
-    dispatch(searchForSelectedCharacter({ level, coords, setError }));
+  const handleClick = ({ nativeEvent: { offsetX, offsetY } }) => {
+    if (menu.visible) {
+      menuDispatch(menuHidden());
+    } else {
+      menuDispatch(menuShown({ coords: { x: offsetX, y: offsetY } }));
+    }
   };
 
   return (
@@ -26,7 +46,9 @@ const GameCanvas = ({ level, level: { image_path }, ...props }) => {
         alt="Find Waldo!"
         onClick={handleClick}
         {...props}
-      />
+      >
+        <CharacterSelectMenu menu={menu} />
+      </ScrollableImage>
       <CharactersInterface />
     </ErrorBoundary>
   );

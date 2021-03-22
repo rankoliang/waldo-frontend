@@ -50,6 +50,7 @@ const ScrollableImage = ({ src, alt, children, ...props }) => {
       />
       <SuccessMarkers zoom={zoom} />
       <FailureMarkers zoom={zoom} />
+      {children}
     </div>
   );
 };

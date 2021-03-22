@@ -6,6 +6,7 @@ import {
 import {
   characterFound,
   selectCharacterSelected,
+  selectCharactersFound,
 } from '../../features/characters/charactersSlice';
 import { fetchFound } from '../../helpers';
 
@@ -13,6 +14,9 @@ export const searchForSelectedCharacter = createAsyncThunk(
   'searchForSelectedCharacterStatus',
   async ({ level, coords, setError }, { getState, dispatch }) => {
     const character = selectCharacterSelected(getState());
+
+    if (selectCharactersFound(getState())[character.id]) return;
+
     fetchFound({ level, character, coords })
       .then(({ found }) => {
         if (found) {

@@ -4,6 +4,7 @@ import charactersReducer, {
   charactersSet,
   characterSelected,
   characterFound,
+  selectCharactersNotFound,
 } from './charactersSlice';
 
 describe('charactersSlice', () => {
@@ -67,6 +68,20 @@ describe('charactersSlice', () => {
       store.dispatch(characterFound(characters[0]));
 
       expect(store.getState().characters.found[characters[0].id]).toBe(true);
+    });
+  });
+
+  describe('selectCharactersNotFound', () => {
+    beforeEach(() => {
+      store.dispatch(charactersSet(characters));
+    });
+
+    it('returns an array of unfound characters', () => {
+      store.dispatch(characterFound(characters[0]));
+
+      expect(selectCharactersNotFound(store.getState())).toEqual(
+        characters.slice(1)
+      );
     });
   });
 });

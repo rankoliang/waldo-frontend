@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createSelector } from '@reduxjs/toolkit';
 
 export const getCharactersInitialState = () => ({
   all: [],
@@ -37,6 +37,13 @@ export const selectCharacters = (state) => state.characters.all;
 export const selectCharacterSelected = (state) => state.characters.selected;
 
 export const selectCharactersFound = (state) => state.characters.found;
+
+export const selectCharactersNotFound = createSelector(
+  selectCharacters,
+  selectCharactersFound,
+  (characters, foundCharacters) =>
+    characters.filter((character) => !foundCharacters[character.id])
+);
 
 const initialFound = (characters) => {
   return Object.fromEntries(

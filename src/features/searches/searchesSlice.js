@@ -6,7 +6,9 @@ import {
 import {
   characterFound,
   selectCharactersFound,
+  selectCharactersNotFound,
 } from '../../features/characters/charactersSlice';
+import { gameEnded } from '../../features/game/gameSlice';
 import { fetchFound } from '../../helpers';
 
 export const searchForCharacter = createAsyncThunk(
@@ -19,6 +21,7 @@ export const searchForCharacter = createAsyncThunk(
         if (found) {
           dispatch(characterFound(character));
           dispatch(searchSuccessful({ character, coords }));
+          handleTurnEnd({ getState, dispatch });
         } else {
           dispatch(searchFailed(coords));
         }
@@ -57,3 +60,11 @@ export const selectSuccessfulSearches = createSelector(
 );
 
 export const selectFailedSearches = (state) => state.searches.failures;
+
+// private
+
+const handleTurnEnd = ({ getState, dispatch }) => {
+  if (selectCharactersNotFound(getState()).length === 0) {
+    dispatch(gameEnded());
+  }
+};

@@ -8,9 +8,13 @@ export const gameStarted = createAsyncThunk('gameStartedStatus', async () => {
   return { startTime: new Date().toJSON() };
 });
 
+export const gameEnded = createAsyncThunk('gameEndedStatus', async () => {
+  return { endTime: new Date().toJSON() };
+});
+
 const gameSlice = createSlice({
   name: 'game',
-  initialState: { zoom: 1, level: null, startTime: null },
+  initialState: { zoom: 1, level: null, startTime: null, endTime: null },
   reducers: {
     zoomSet: {
       reducer: (state, action) => {
@@ -39,6 +43,11 @@ const gameSlice = createSlice({
 
       state.startTime = startTime;
     },
+    [gameEnded.fulfilled]: (state, action) => {
+      const { endTime } = action.payload;
+
+      state.endTime = endTime;
+    },
   },
 });
 
@@ -47,6 +56,19 @@ export const selectLevel = (state) => state.game.level;
 export const selectStartTime = createSelector(
   (state) => state.game.startTime,
   (jsonDate) => new Date(jsonDate)
+);
+
+export const selectTotalMilliseconds = createSelector(
+  (state) => state.game.startTime,
+  (state) => state.game.endTime,
+  (startDateJSON, endDateJSON) => {
+    if (!startDateJSON || !endDateJSON) return null;
+
+    const startDate = new Date(startDateJSON);
+    const endDate = new Date(endDateJSON);
+
+    return endDate - startDate;
+  }
 );
 
 export const { zoomSet, levelSet } = gameSlice.actions;

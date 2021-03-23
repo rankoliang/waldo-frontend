@@ -1,18 +1,24 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Heading } from 'react-bulma-components';
-import { fetchLeaderboard } from '../helpers';
+import { fetchLeaderboard, fetchLevel } from '../helpers';
 import ErrorBoundary from './ErrorBoundary';
 import LoadingHandler from './LoadingHandler';
 
 const Leaderboard = () => {
   const { levelId } = useParams();
   const [scores, setScores] = useState([]);
+  const [level, setLevel] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchLeaderboard(levelId)
+    fetchLevel(levelId)
+      .then(({ level }) => {
+        setLevel(level);
+        return level;
+      })
+      .then((level) => fetchLeaderboard(level.id))
       .then(setScores)
       .catch(setError)
       .finally(() => {
@@ -23,7 +29,7 @@ const Leaderboard = () => {
   return (
     <ErrorBoundary error={error}>
       <LoadingHandler loading={loading}>
-        <Heading>Leaderboard</Heading>
+        <Heading>{level?.title} Leaderboard</Heading>
         {scores.map((score, i) => {
           return (
             <div key={i}>

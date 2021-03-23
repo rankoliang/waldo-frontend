@@ -23,7 +23,13 @@ export const gameEnded = createAsyncThunk('gameEndedStatus', async () => {
 });
 
 const getInitialState = () => {
-  return { zoom: 1, level: null, startTime: null, endTime: null };
+  return {
+    zoom: 1,
+    level: null,
+    startTime: null,
+    endTime: null,
+    phase: null,
+  };
 };
 
 const gameSlice = createSlice({
@@ -57,11 +63,13 @@ const gameSlice = createSlice({
       const { startTime } = action.payload;
 
       state.startTime = startTime;
+      state.phase = 'started';
     },
     [gameEnded.fulfilled]: (state, action) => {
       const { endTime } = action.payload;
 
       state.endTime = endTime;
+      state.phase = 'ended';
     },
   },
 });
@@ -85,6 +93,8 @@ export const selectTotalMilliseconds = createSelector(
     return endDate - startDate;
   }
 );
+
+export const selectPhase = (state) => state.game.phase;
 
 export const { zoomSet, levelSet, gameReset } = gameSlice.actions;
 

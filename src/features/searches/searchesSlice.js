@@ -5,7 +5,6 @@ import {
 } from '@reduxjs/toolkit';
 import {
   characterFound,
-  selectCharacterSelected,
   selectCharactersFound,
 } from '../../features/characters/charactersSlice';
 import { fetchFound } from '../../helpers';
@@ -25,18 +24,6 @@ export const searchForCharacter = createAsyncThunk(
         }
       })
       .catch(setError);
-  }
-);
-
-export const searchForSelectedCharacter = createAsyncThunk(
-  'searchForSelectedCharacterStatus',
-  async ({ level, coords, setError }, { getState, dispatch }) => {
-    const character = selectCharacterSelected(getState());
-
-    dispatch(
-      getState(),
-      searchForCharacter({ level, coords, setError, character })
-    );
   }
 );
 

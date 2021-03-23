@@ -15,7 +15,7 @@ const useZoom = (height, width, wrapper) => {
     const fullHeightZoom = wrapper.clientHeight / height;
 
     dispatch(zoomSet(Math.max(fullWidthZoom, fullHeightZoom)));
-  }, [width, height, wrapper]);
+  }, [dispatch, width, height, wrapper]);
 
   useEffect(updateZoom);
 

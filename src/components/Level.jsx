@@ -6,6 +6,7 @@ import GameCanvas from './GameCanvas';
 import ErrorBoundary from './ErrorBoundary';
 import LoadingHandler from './LoadingHandler';
 import { charactersSet } from '../features/characters/charactersSlice';
+import { levelSet } from '../features/game/gameSlice';
 
 const Level = () => {
   const { levelId } = useParams();
@@ -13,12 +14,11 @@ const Level = () => {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [level, setLevel] = useState(null);
 
   useEffect(() => {
     fetchLevel(levelId)
       .then(({ level }) => {
-        setLevel(level);
+        dispatch(levelSet(level));
         return level;
       })
       .then(fetchLevelCharacters)
@@ -34,7 +34,7 @@ const Level = () => {
   return (
     <ErrorBoundary error={error}>
       <LoadingHandler loading={loading}>
-        <GameCanvas level={level} />
+        <GameCanvas />
       </LoadingHandler>
     </ErrorBoundary>
   );

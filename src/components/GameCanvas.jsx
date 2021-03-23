@@ -1,55 +1,44 @@
-import { useReducer, useState } from 'react';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import ScrollableImage from './ScrollableImage';
 import CharactersInterface from './CharactersInterface';
 import ErrorBoundary from './ErrorBoundary';
 import CharacterSelectMenu from './CharacterSelectMenu';
+import MenuContext from '../features/menu/MenuContext';
+import {
+  menuHidden,
+  menuShown,
+  useMenuStore,
+} from '../features/menu/menuSlice';
+import { selectLevel } from '../features/game/gameSlice';
 
-const menuShown = ({ coords }) => {
-  return { type: 'menu/show', payload: { coords } };
-};
-
-const menuHidden = () => {
-  return { type: 'menu/hide' };
-};
-
-const menuReducer = (state, action) => {
-  switch (action.type) {
-    case 'menu/show':
-      const { coords } = action.payload;
-      return { ...state, coords, visible: true };
-    case 'menu/hide':
-      return { ...state, coordinates: null, visible: false };
-    default:
-      return state;
-  }
-};
-
-const GameCanvas = ({ level, level: { image_path }, ...props }) => {
+const GameCanvas = (props) => {
   const [error, setError] = useState(null);
-  const [menu, menuDispatch] = useReducer(menuReducer, {
-    visible: false,
-    coordinates: null,
-  });
+  const level = useSelector(selectLevel);
+  const { image_path } = level;
+  const menuStore = useMenuStore();
 
   const handleClick = ({ nativeEvent: { offsetX: x, offsetY: y } }) => {
-    if (menu.visible) {
-      menuDispatch(menuHidden());
+    if (menuStore.state.visible) {
+      menuStore.dispatch(menuHidden());
     } else {
-      menuDispatch(menuShown({ coords: { x, y } }));
+      menuStore.dispatch(menuShown({ coords: { x, y } }));
     }
   };
 
   return (
     <ErrorBoundary error={error}>
-      <ScrollableImage
-        src={image_path}
-        alt="Find Waldo!"
-        onClick={handleClick}
-        {...props}
-      >
-        <CharacterSelectMenu menu={menu} />
-      </ScrollableImage>
-      <CharactersInterface />
+      <MenuContext.Provider value={menuStore}>
+        <ScrollableImage
+          src={image_path}
+          alt="Find Waldo!"
+          onClick={handleClick}
+          {...props}
+        >
+          <CharacterSelectMenu setError={setError} />
+        </ScrollableImage>
+        <CharactersInterface />
+      </MenuContext.Provider>
     </ErrorBoundary>
   );
 };

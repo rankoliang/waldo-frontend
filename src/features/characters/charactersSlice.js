@@ -2,7 +2,6 @@ import { createSlice, createSelector } from '@reduxjs/toolkit';
 
 export const getCharactersInitialState = () => ({
   all: [],
-  selected: null,
   found: {},
 });
 
@@ -12,11 +11,7 @@ const charactersSlice = createSlice({
   reducers: {
     charactersSet: (state, action) => {
       state.all = action.payload;
-      state.selected = state.all.length >= 1 ? state.all[0] : null;
       state.found = initialFound(state.all);
-    },
-    characterSelected: (state, action) => {
-      state.selected = action.payload;
     },
     characterFound: (state, action) => {
       state.found[action.payload.id] = true;
@@ -33,8 +28,6 @@ export const {
 } = charactersSlice.actions;
 
 export const selectCharacters = (state) => state.characters.all;
-
-export const selectCharacterSelected = (state) => state.characters.selected;
 
 export const selectCharactersFound = (state) => state.characters.found;
 

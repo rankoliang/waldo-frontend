@@ -1,16 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  selectCharacters,
-  selectCharacterSelected,
-  selectCharactersFound,
-} from './charactersSlice';
+import { selectCharacters, selectCharactersFound } from './charactersSlice';
 
 export const useCharacters = () => {
   return useSelector(selectCharacters);
-};
-
-export const useSelectedCharacter = () => {
-  return useSelector(selectCharacterSelected);
 };
 
 export const useCharactersFound = () => {

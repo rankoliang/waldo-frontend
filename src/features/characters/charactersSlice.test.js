@@ -2,7 +2,6 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import charactersReducer, {
   charactersSet,
-  characterSelected,
   characterFound,
   selectCharactersNotFound,
 } from './charactersSlice';
@@ -24,10 +23,9 @@ describe('charactersSlice', () => {
   });
 
   describe('initialState', () => {
-    it('has an all and selected state', () => {
+    it('has an all and found state', () => {
       expect(store.getState().characters).toMatchObject({
         all: [],
-        selected: null,
         found: {},
       });
     });
@@ -42,24 +40,12 @@ describe('charactersSlice', () => {
       expect(store.getState().characters.all).toEqual(characters);
     });
 
-    it('selects the first character', () => {
-      expect(store.getState().characters.selected).toEqual(characters[0]);
-    });
-
     it('creates a found object with all values set to false', () => {
       expect(store.getState().characters.found).toMatchObject({
         1: false,
         2: false,
         3: false,
       });
-    });
-  });
-
-  describe('characterSelected', () => {
-    it('selects the chosen character', () => {
-      store.dispatch(characterSelected(characters[1]));
-
-      expect(store.getState().characters.selected).toMatchObject(characters[1]);
     });
   });
 

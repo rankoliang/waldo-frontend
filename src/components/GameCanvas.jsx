@@ -11,6 +11,8 @@ import {
   useMenuStore,
 } from '../features/menu/menuSlice';
 import { selectLevel } from '../features/game/gameSlice';
+import { SuccessMarkers } from './SuccessMarker';
+import { FailureMarkers } from './FailureMarker';
 
 const GameCanvas = (props) => {
   const [error, setError] = useState(null);
@@ -35,6 +37,8 @@ const GameCanvas = (props) => {
           onClick={handleClick}
           {...props}
         >
+          <SuccessMarkers />
+          <FailureMarkers />
           <CharacterSelectMenu setError={setError} />
         </ScrollableImage>
         <CharactersInterface />

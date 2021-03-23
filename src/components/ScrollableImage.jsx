@@ -1,8 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectZoom, zoomSet } from '../features/game/gameSlice';
-import { SuccessMarkers } from './SuccessMarker';
-import { FailureMarkers } from './FailureMarker';
 
 const useZoom = (height, width, wrapper) => {
   const dispatch = useDispatch();
@@ -52,8 +50,6 @@ const ScrollableImage = ({ src, alt, children, ...props }) => {
         }}
         {...props}
       />
-      <SuccessMarkers />
-      <FailureMarkers />
       {children}
     </div>
   );

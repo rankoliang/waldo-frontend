@@ -27,6 +27,8 @@ const CharacterSelectMenu = (setError) => {
     menuStore.dispatch(menuHidden());
   };
 
+  if (undiscoveredCharacters.length === 0) return null;
+
   return (
     <div
       className="dropdown-content character-select-menu"

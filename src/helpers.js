@@ -61,3 +61,7 @@ export const fetchFound = createApiFetch({
     `/levels/${level.id}/characters/${character.id}/search?` +
     new URLSearchParams(coords),
 });
+
+export const fetchLeaderboard = createApiFetch({
+  getPath: ({ level }) => `/levels/${level.id}/leaderboard`,
+});

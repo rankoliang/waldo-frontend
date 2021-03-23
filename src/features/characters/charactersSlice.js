@@ -16,6 +16,7 @@ const charactersSlice = createSlice({
     characterFound: (state, action) => {
       state.found[action.payload.id] = true;
     },
+    charactersReset: getCharactersInitialState,
   },
 });
 
@@ -25,6 +26,7 @@ export const {
   charactersSet,
   characterSelected,
   characterFound,
+  charactersReset,
 } = charactersSlice.actions;
 
 export const selectCharacters = (state) => state.characters.all;

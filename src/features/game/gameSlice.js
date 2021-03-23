@@ -4,17 +4,31 @@ import {
   createSelector,
 } from '@reduxjs/toolkit';
 
-export const gameStarted = createAsyncThunk('gameStartedStatus', async () => {
-  return { startTime: new Date().toJSON() };
-});
+import { charactersReset } from '../characters/charactersSlice';
+import { searchesReset } from '../searches/searchesSlice';
+
+export const gameStarted = createAsyncThunk(
+  'gameStartedStatus',
+  async (_, { dispatch }) => {
+    dispatch(gameReset());
+    dispatch(charactersReset());
+    dispatch(searchesReset());
+
+    return { startTime: new Date().toJSON() };
+  }
+);
 
 export const gameEnded = createAsyncThunk('gameEndedStatus', async () => {
   return { endTime: new Date().toJSON() };
 });
 
+const getInitialState = () => {
+  return { zoom: 1, level: null, startTime: null, endTime: null };
+};
+
 const gameSlice = createSlice({
   name: 'game',
-  initialState: { zoom: 1, level: null, startTime: null, endTime: null },
+  initialState: getInitialState(),
   reducers: {
     zoomSet: {
       reducer: (state, action) => {
@@ -36,6 +50,7 @@ const gameSlice = createSlice({
         return { payload: { level } };
       },
     },
+    gameReset: getInitialState,
   },
   extraReducers: {
     [gameStarted.fulfilled]: (state, action) => {
@@ -71,6 +86,6 @@ export const selectTotalMilliseconds = createSelector(
   }
 );
 
-export const { zoomSet, levelSet } = gameSlice.actions;
+export const { zoomSet, levelSet, gameReset } = gameSlice.actions;
 
 export default gameSlice.reducer;

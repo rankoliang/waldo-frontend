@@ -12,16 +12,18 @@ const TimerMessage = () => {
 
   useEffect(() => {
     if (!totalMilliseconds) {
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         setTimeElapsed(Math.round((new Date() - startTime) / 1000));
       }, 1000);
+
+      return () => clearTimeout(timer);
     } else {
       setTimeElapsed(totalMilliseconds / 1000);
     }
   }, [totalMilliseconds, timeElapsed, startTime]);
 
   if (totalMilliseconds) {
-    return `You won in ${timeElapsed} s!`;
+    return `You found everyone in ${timeElapsed} seconds!`;
   } else {
     return `${timeElapsed} s`;
   }

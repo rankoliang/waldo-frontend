@@ -47,12 +47,17 @@ const searchesSlice = createSlice({
     searchFailed: (state, action) => {
       state.failures.push(action.payload);
     },
+    searchesReset: getSearchesInitalState,
   },
 });
 
 export default searchesSlice.reducer;
 
-export const { searchSuccessful, searchFailed } = searchesSlice.actions;
+export const {
+  searchSuccessful,
+  searchFailed,
+  searchesReset,
+} = searchesSlice.actions;
 
 export const selectSuccessfulSearches = createSelector(
   (state) => state.searches.successes,

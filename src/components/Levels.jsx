@@ -50,6 +50,12 @@ const LevelCard = ({ level: { id, title, image_path } }) => {
         >
           Play
         </Card.Footer.Item>
+        <Card.Footer.Item
+          renderAs={ButtonLink}
+          to={`/levels/${id}/leaderboard`}
+        >
+          Leaderboard
+        </Card.Footer.Item>
       </Card.Footer>
     </Card>
   );

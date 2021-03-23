@@ -11,9 +11,8 @@ const GameNavbar = () => {
           to="/"
           activeClassName="is-active"
         >
-          Home
+          Where's Waldo?
         </Navbar.Item>
-        <Navbar.Item>Leaderboard</Navbar.Item>
       </Navbar.Brand>
     </Navbar>
   );

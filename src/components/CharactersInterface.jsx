@@ -1,4 +1,5 @@
 import { Navbar } from 'react-bulma-components';
+import { Link } from 'react-router-dom';
 import TimerMessage from './TimerMessage';
 import {
   useCharacters,
@@ -24,6 +25,13 @@ const CharactersInterface = () => {
             {character.name}
           </Navbar.Item>
         ))}
+        <Navbar.Item
+          renderAs={Link}
+          to={(location) => `${location.pathname}/leaderboard`}
+          className="is-active"
+        >
+          Go to Leaderboard
+        </Navbar.Item>
       </Navbar.Brand>
     </Navbar>
   );

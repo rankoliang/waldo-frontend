@@ -10,13 +10,15 @@ import {
   menuShown,
   useMenuStore,
 } from '../features/menu/menuSlice';
-import { selectLevel } from '../features/game/gameSlice';
+import { selectLevel, selectPhase } from '../features/game/gameSlice';
 import { SuccessMarkers } from './SuccessMarker';
 import { FailureMarkers } from './FailureMarker';
+import WinningForm from './WinningForm';
 
 const GameCanvas = (props) => {
   const [error, setError] = useState(null);
   const level = useSelector(selectLevel);
+  const gamePhase = useSelector(selectPhase);
   const { image_path } = level;
   const menuStore = useMenuStore();
 
@@ -43,6 +45,7 @@ const GameCanvas = (props) => {
         </ScrollableImage>
         <CharactersInterface />
       </MenuContext.Provider>
+      <WinningForm />
     </ErrorBoundary>
   );
 };

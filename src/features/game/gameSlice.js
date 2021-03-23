@@ -56,6 +56,9 @@ const gameSlice = createSlice({
         return { payload: { level } };
       },
     },
+    gameExited: (state) => {
+      state.phase = null;
+    },
     gameReset: getInitialState,
   },
   extraReducers: {
@@ -96,6 +99,6 @@ export const selectTotalMilliseconds = createSelector(
 
 export const selectPhase = (state) => state.game.phase;
 
-export const { zoomSet, levelSet, gameReset } = gameSlice.actions;
+export const { zoomSet, levelSet, gameReset, gameExited } = gameSlice.actions;
 
 export default gameSlice.reducer;

@@ -4,6 +4,7 @@ import Levels from './components/Levels';
 import './App.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Level } from './components/Level';
+import Leaderboard from './components/Leaderboard';
 
 function App() {
   return (
@@ -24,8 +25,11 @@ const Routes = () => {
         <Route exact path="/levels">
           <Levels />
         </Route>
-        <Route path="/levels/:levelId">
+        <Route exact path="/levels/:levelId">
           <Level />
+        </Route>
+        <Route exact path="/levels/:levelId/leaderboard">
+          <Leaderboard />
         </Route>
       </Switch>
     </BrowserRouter>

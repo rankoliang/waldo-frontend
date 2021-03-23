@@ -63,5 +63,5 @@ export const fetchFound = createApiFetch({
 });
 
 export const fetchLeaderboard = createApiFetch({
-  getPath: ({ level }) => `/levels/${level.id}/leaderboard`,
+  getPath: (levelId) => `/levels/${levelId}/leaderboard`,
 });

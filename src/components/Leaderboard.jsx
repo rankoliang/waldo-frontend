@@ -1,9 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Hero, Heading, Table, Container } from 'react-bulma-components';
+import {
+  Hero,
+  Heading,
+  Table,
+  Container,
+  Button,
+} from 'react-bulma-components';
 import { fetchLeaderboard } from '../helpers';
 import ErrorBoundary from './ErrorBoundary';
 import LoadingHandler from './LoadingHandler';
+import { Link } from 'react-router-dom';
 
 const Leaderboard = () => {
   const { levelId } = useParams();
@@ -40,6 +47,9 @@ const Leaderboard = () => {
             </Container>
           </Hero.Body>
         </Hero>
+        <Button renderAs={Link} color="primary" to={`/levels/${levelId}`}>
+          Play
+        </Button>
         <Container fluid>
           <Table className="leaderboard">
             <thead>

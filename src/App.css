@@ -47,3 +47,25 @@ body,
 .level-card__thumbnail img {
   object-fit: none;
 }
+
+.leaderboard__title {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 1em;
+}
+
+.leaderboard__title-background {
+  background-position: center;
+}
+
+.leaderboard__title * {
+  color: white;
+}
+
+.min {
+  width: 5%;
+  white-space: nowrap;
+}
+
+.fill {
+  width: 100%;
+}

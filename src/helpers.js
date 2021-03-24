@@ -8,6 +8,7 @@ const createApiFetch = ({
   getPath,
   messages = {},
   expectResponse = true,
+  returnJsonOnError = false,
   opts,
 }) => {
   return async (...args) => {
@@ -18,7 +19,7 @@ const createApiFetch = ({
         return response.json();
       }
     } else {
-      return rejectResponse(response, messages);
+      return rejectResponse(response, messages, returnJsonOnError);
     }
   };
 };
@@ -30,7 +31,9 @@ export class ResponseError extends Error {
   }
 }
 
-const rejectResponse = async (response, messages = {}) => {
+const rejectResponse = async (response, messages = {}, returnJsonOnError) => {
+  if (returnJsonOnError) return await getErrorMessage(response, messages);
+
   const err = new ResponseError(response);
 
   try {
@@ -82,4 +85,5 @@ export const postToLeaderboard = createApiFetch({
     mode: 'no-cors',
   },
   expectResponse: false,
+  returnJsonOnError: true,
 });

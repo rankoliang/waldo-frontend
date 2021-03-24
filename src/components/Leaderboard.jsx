@@ -1,35 +1,37 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import {
-  Hero,
-  Heading,
-  Table,
-  Container,
-  Button,
-} from 'react-bulma-components';
+import { Hero, Heading, Container, Button } from 'react-bulma-components';
 import { fetchLeaderboard } from '../helpers';
 import ErrorBoundary from './ErrorBoundary';
 import LoadingHandler from './LoadingHandler';
 import { Link } from 'react-router-dom';
+import LeaderboardTable from './LeaderboardTable';
 
-const Leaderboard = () => {
+const Leaderboard = ({ initialPage = 1 }) => {
   const { levelId } = useParams();
   const [scores, setScores] = useState([]);
   const [level, setLevel] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [leaderboardLoading, setLeaderboardLoading] = useState(true);
+  const [page, setPage] = useState(initialPage);
+  const [pages, setPages] = useState(1);
 
   useEffect(() => {
-    fetchLeaderboard(levelId)
-      .then(({ level, scores }) => {
+    setLeaderboardLoading(true);
+
+    fetchLeaderboard(levelId, page)
+      .then(({ level, scores, pages }) => {
         setLevel(level);
         setScores(scores);
+        setPages(pages);
       })
       .catch(setError)
       .finally(() => {
         setLoading(false);
+        setLeaderboardLoading(false);
       });
-  }, [levelId]);
+  }, [levelId, page]);
 
   return (
     <ErrorBoundary error={error}>
@@ -50,30 +52,14 @@ const Leaderboard = () => {
         <Button renderAs={Link} color="primary" to={`/levels/${levelId}`}>
           Play
         </Button>
-        <Container fluid>
-          <Table className="leaderboard">
-            <thead>
-              <tr>
-                <th className="min">Rank</th>
-                <th className="fill">Name</th>
-                <th className="min">Time</th>
-              </tr>
-            </thead>
-            <tbody>
-              {scores.map((score, i) => {
-                return (
-                  <tr key={i}>
-                    <th className="min">{i + 1}</th>
-                    <td className="fill">{score.name}</td>
-                    <td className="min">
-                      {(score.milliseconds / 1000).toFixed(2)} s
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </Table>
-        </Container>
+        <LoadingHandler loading={leaderboardLoading}>
+          <LeaderboardTable
+            scores={scores}
+            page={page}
+            pages={pages}
+            setPage={setPage}
+          />
+        </LoadingHandler>
       </LoadingHandler>
     </ErrorBoundary>
   );

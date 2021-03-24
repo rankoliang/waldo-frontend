@@ -75,7 +75,8 @@ export const fetchFound = createApiFetch({
 });
 
 export const fetchLeaderboard = createApiFetch({
-  getPath: (levelId) => `/levels/${levelId}/leaderboard`,
+  getPath: (levelId, page = 1) =>
+    `/levels/${levelId}/leaderboard?` + new URLSearchParams({ page }),
 });
 
 export const postToLeaderboard = createApiFetch({

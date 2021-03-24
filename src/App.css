@@ -15,6 +15,11 @@ body,
   height: 100%;
 }
 
+.progress-bar {
+  margin: 1em 0;
+  width: 100%;
+}
+
 .marker {
   position: absolute;
 }
@@ -59,6 +64,10 @@ body,
 
 .leaderboard__title * {
   color: white;
+}
+
+.leaderboard__pagination {
+  margin-top: 1em;
 }
 
 .min {

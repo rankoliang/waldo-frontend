@@ -2,7 +2,7 @@ import { Progress } from 'react-bulma-components';
 
 const LoadingHandler = ({ loading, children }) => {
   if (loading) {
-    return <Progress />;
+    return <Progress className="progress-bar"/>;
   } else {
     return children;
   }

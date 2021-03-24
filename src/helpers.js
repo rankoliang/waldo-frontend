@@ -32,7 +32,9 @@ export class ResponseError extends Error {
 }
 
 const rejectResponse = async (response, messages = {}, returnJsonOnError) => {
-  if (returnJsonOnError) return await getErrorMessage(response, messages);
+  if (returnJsonOnError) {
+    return Promise.reject(await response.json());
+  }
 
   const err = new ResponseError(response);
 

@@ -12,6 +12,7 @@ const WinningForm = ({ show = false, setModalShow }) => {
   const history = useHistory();
   const location = useLocation();
   const { levelId } = useParams();
+  const [errors, setErrors] = useState({});
   const gamePhase = useSelector(selectPhase);
   const totalMilliseconds = useSelector(selectTotalMilliseconds);
 
@@ -31,20 +32,26 @@ const WinningForm = ({ show = false, setModalShow }) => {
       levelId,
       name,
       milliseconds: totalMilliseconds,
-    }).then(() => {
-      history.push(location.pathname + '/leaderboard');
-    });
+    })
+      .then(() => {
+        history.push(location.pathname + '/leaderboard');
+      })
+      .catch(({ errors }) => {
+        setErrors(errors);
+      });
   };
 
   return (
     <Modal
-      closeOnBlur="true"
+      closeOnBlur={true}
       show={show && gamePhase === 'ended'}
       onClose={handleOnClose}
     >
       <Modal.Content>
         <Section style={{ backgroundColor: 'white' }}>
-          <Heading>You won in {totalMilliseconds / 1000} seconds.</Heading>
+          <Heading>
+            You won in {(totalMilliseconds / 1000).toFixed(2)} seconds.
+          </Heading>
           <form onSubmit={handleOnSubmit}>
             <Form.Field>
               <Form.Label htmlFor="display-name">Name</Form.Label>
@@ -54,8 +61,15 @@ const WinningForm = ({ show = false, setModalShow }) => {
                   type="text"
                   value={name}
                   onChange={handleNameChange}
+                  maxLength="20"
+                  minLength="3"
+                  required
                 />
               </Form.Control>
+              {errors.name &&
+                errors.name.map((err) => (
+                  <Form.Help color="danger">Name {err}</Form.Help>
+                ))}
             </Form.Field>
             <Form.Field>
               <Form.Control>

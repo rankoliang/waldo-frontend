@@ -17,6 +17,13 @@ const Level = () => {
 
   useEffect(() => {
     dispatch(gameStarted());
+
+    const htmlEl = document.querySelector('html');
+    htmlEl.style.overflow = 'hidden';
+
+    return () => {
+      htmlEl.style.overflow = 'inherit';
+    };
   }, [dispatch]);
 
   useEffect(() => {

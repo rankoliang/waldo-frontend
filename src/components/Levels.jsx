@@ -25,7 +25,7 @@ const Levels = () => {
   const { levels, error } = useLevels();
 
   return (
-    <Container>
+    <Container fluid>
       <ErrorBoundary error={error}>
         {levels.map((level) => (
           <LevelCard level={level} key={level.id} />
@@ -37,8 +37,11 @@ const Levels = () => {
 
 const LevelCard = ({ level: { id, title, image_path } }) => {
   return (
-    <Card>
-      <Card.Image src={image_path}></Card.Image>
+    <Card className="level-card">
+      <Card.Image
+        src={image_path}
+        className="level-card__thumbnail"
+      ></Card.Image>
       <Card.Header>
         <Card.Header.Title className="is-centered">{title}</Card.Header.Title>
       </Card.Header>

@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { Navbar } from 'react-bulma-components';
 import {
   selectStartTime,
   selectTotalMilliseconds,
   selectPhase,
 } from '../features/game/gameSlice';
 
-const TimerMessage = () => {
+const TimerMessage = ({ setModalShow }) => {
   const startTime = useSelector(selectStartTime);
   const totalMilliseconds = useSelector(selectTotalMilliseconds);
   const gamePhase = useSelector(selectPhase);
@@ -25,9 +26,17 @@ const TimerMessage = () => {
   }, [totalMilliseconds, timeElapsed, startTime]);
 
   if (gamePhase === 'ended') {
-    return `You found everyone in ${timeElapsed} seconds!`;
+    return (
+      <Navbar.Item
+        onClick={() => {
+          setModalShow(true);
+        }}
+      >
+        Submit your score: {timeElapsed} seconds
+      </Navbar.Item>
+    );
   } else {
-    return `${timeElapsed} s`;
+    return <Navbar.Item renderAs="div">{timeElapsed} s</Navbar.Item>;
   }
 };
 

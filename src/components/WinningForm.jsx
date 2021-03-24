@@ -1,26 +1,24 @@
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
   selectPhase,
   selectTotalMilliseconds,
-  gameExited,
 } from '../features/game/gameSlice';
 import { Modal, Section, Form, Button, Heading } from 'react-bulma-components';
 import { postToLeaderboard } from '../helpers';
 import { useParams, useHistory, useLocation } from 'react-router-dom';
 
-const WinningForm = () => {
+const WinningForm = ({ show = false, setModalShow }) => {
   const history = useHistory();
   const location = useLocation();
   const { levelId } = useParams();
-  const dispatch = useDispatch();
   const gamePhase = useSelector(selectPhase);
   const totalMilliseconds = useSelector(selectTotalMilliseconds);
 
   const [name, setName] = useState('Anonymous');
 
   const handleOnClose = () => {
-    dispatch(gameExited());
+    setModalShow(false);
   };
 
   const handleNameChange = ({ target: { value } }) => {
@@ -39,7 +37,11 @@ const WinningForm = () => {
   };
 
   return (
-    <Modal show={gamePhase === 'ended'} onClose={handleOnClose}>
+    <Modal
+      closeOnBlur="true"
+      show={show && gamePhase === 'ended'}
+      onClose={handleOnClose}
+    >
       <Modal.Content>
         <Section style={{ backgroundColor: 'white' }}>
           <Heading>You won in {totalMilliseconds / 1000} seconds.</Heading>

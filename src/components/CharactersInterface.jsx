@@ -6,16 +6,14 @@ import {
   useCharactersFound,
 } from '../features/characters/CharactersHooks';
 
-const CharactersInterface = () => {
+const CharactersInterface = ({ setModalShow }) => {
   const characters = useCharacters();
   const charactersFound = useCharactersFound();
 
   return (
     <Navbar color="dark" role="navigation" aria-label="main navigation">
       <Navbar.Brand>
-        <Navbar.Item renderAs="div">
-          <TimerMessage />
-        </Navbar.Item>
+        <TimerMessage setModalShow={setModalShow} />
         {characters.map((character) => (
           <Navbar.Item
             renderAs="div"

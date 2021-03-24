@@ -6,13 +6,18 @@ import {
   gameExited,
 } from '../features/game/gameSlice';
 import { Modal, Section, Form, Button, Heading } from 'react-bulma-components';
+import { postToLeaderboard } from '../helpers';
+import { useParams, useHistory, useLocation } from 'react-router-dom';
 
 const WinningForm = () => {
+  const history = useHistory();
+  const location = useLocation();
+  const { levelId } = useParams();
   const dispatch = useDispatch();
   const gamePhase = useSelector(selectPhase);
-  const winningTime = useSelector(selectTotalMilliseconds);
+  const totalMilliseconds = useSelector(selectTotalMilliseconds);
 
-  const [name, setName] = useState('');
+  const [name, setName] = useState('Anonymous');
 
   const handleOnClose = () => {
     dispatch(gameExited());
@@ -22,12 +27,23 @@ const WinningForm = () => {
     setName(value);
   };
 
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    postToLeaderboard({
+      levelId,
+      name,
+      milliseconds: totalMilliseconds,
+    }).then(() => {
+      history.push(location.pathname + '/leaderboard');
+    });
+  };
+
   return (
     <Modal show={gamePhase === 'ended'} onClose={handleOnClose}>
       <Modal.Content>
         <Section style={{ backgroundColor: 'white' }}>
-          <Heading>You won in {winningTime / 1000} seconds.</Heading>
-          <form>
+          <Heading>You won in {totalMilliseconds / 1000} seconds.</Heading>
+          <form onSubmit={handleOnSubmit}>
             <Form.Field>
               <Form.Label htmlFor="display-name">Name</Form.Label>
               <Form.Control>

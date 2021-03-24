@@ -4,12 +4,19 @@ export const between = (number, lowerBound, upperBound) => {
   return number > lowerBound && number < upperBound;
 };
 
-const createApiFetch = ({ getPath, messages = {} }) => {
+const createApiFetch = ({
+  getPath,
+  messages = {},
+  expectResponse = true,
+  opts,
+}) => {
   return async (...args) => {
-    const response = await fetch(path.join('/api/v1/', getPath(...args)));
+    const response = await fetch(path.join('/api/v1/', getPath(...args)), opts);
 
     if (response.ok) {
-      return response.json();
+      if (expectResponse) {
+        return response.json();
+      }
     } else {
       return rejectResponse(response, messages);
     }
@@ -64,4 +71,15 @@ export const fetchFound = createApiFetch({
 
 export const fetchLeaderboard = createApiFetch({
   getPath: (levelId) => `/levels/${levelId}/leaderboard`,
+});
+
+export const postToLeaderboard = createApiFetch({
+  getPath: ({ levelId, name, milliseconds }) =>
+    `/levels/${levelId}/leaderboard?` +
+    new URLSearchParams({ name, milliseconds }),
+  opts: {
+    method: 'POST',
+    mode: 'no-cors',
+  },
+  expectResponse: false,
 });

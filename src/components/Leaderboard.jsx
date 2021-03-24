@@ -33,7 +33,7 @@ const Leaderboard = () => {
         {scores.map((score, i) => {
           return (
             <div key={i}>
-              {score.name} - {score.milliseconds}
+              {score.name} - {score.milliseconds / 1000}s
             </div>
           );
         })}

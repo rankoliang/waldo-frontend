@@ -38,10 +38,9 @@ const Levels = () => {
 const LevelCard = ({ level: { id, title, image_path } }) => {
   return (
     <Card className="level-card">
-      <Card.Image
-        src={image_path}
-        className="level-card__thumbnail"
-      ></Card.Image>
+      <Link to={`/levels/${id}`}>
+        <Card.Image src={image_path} className="level-card__thumbnail" />
+      </Link>
       <Card.Header>
         <Card.Header.Title className="is-centered">{title}</Card.Header.Title>
       </Card.Header>

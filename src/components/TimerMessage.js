@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Navbar } from 'react-bulma-components';
+import { Navbar, Button } from 'react-bulma-components';
 import {
   selectStartTime,
   selectTotalMilliseconds,
@@ -31,8 +31,10 @@ const TimerMessage = ({ setModalShow }) => {
         onClick={() => {
           setModalShow(true);
         }}
+        textColor="primary"
+        active
       >
-        Submit your score: {timeElapsed} seconds
+        Submit Time of {Math.ceil(timeElapsed)} s
       </Navbar.Item>
     );
   } else {

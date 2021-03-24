@@ -1,7 +1,9 @@
 import { Navbar } from 'react-bulma-components';
-import { NavLink } from 'react-router-dom';
+import { useRouteMatch, NavLink } from 'react-router-dom';
 
 const GameNavbar = () => {
+  const match = useRouteMatch({ path: '/levels/:levelId', exact: true });
+
   return (
     <Navbar color="dark" role="navigation" aria-label="main navigation">
       <Navbar.Brand>
@@ -13,6 +15,15 @@ const GameNavbar = () => {
         >
           Where's Waldo?
         </Navbar.Item>
+        {match && (
+          <Navbar.Item
+            renderAs={NavLink}
+            to={(location) => `${location.pathname}/leaderboard`}
+            textColor="warning"
+          >
+            Leaderboard
+          </Navbar.Item>
+        )}
       </Navbar.Brand>
     </Navbar>
   );

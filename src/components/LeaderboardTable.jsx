@@ -11,7 +11,7 @@ const LeaderboardTable = ({ scores, page, pages, setPage, position }) => {
         delta={5}
         onChange={setPage}
       ></Pagination>
-      <Table className="leaderboard">
+      <Table className="leaderboard mb-4">
         <thead>
           <tr>
             <th className="min">Rank</th>

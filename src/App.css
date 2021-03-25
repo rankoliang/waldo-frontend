@@ -9,6 +9,10 @@ body,
   flex-flow: column;
 }
 
+.mb-4 {
+  margin-bottom: 1em;
+}
+
 .scrollable-wrapper {
   overflow: scroll;
   position: relative;

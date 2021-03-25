@@ -27,6 +27,9 @@ const Leaderboard = () => {
         setLevel(level);
         setScores(scores);
         setPages(pages);
+        if (page > pages) {
+          setPage(pages);
+        }
       })
       .catch(setError)
       .finally(() => {

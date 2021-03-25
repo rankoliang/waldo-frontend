@@ -53,7 +53,8 @@ const WinningForm = ({ show = false, setModalShow }) => {
       <Modal.Content>
         <Section style={{ backgroundColor: 'white' }}>
           <Heading>
-            You won in {(totalMilliseconds / 1000).toFixed(2)} seconds.
+            You finished the level in {(totalMilliseconds / 1000).toFixed(2)}{' '}
+            seconds!
           </Heading>
           <form onSubmit={handleOnSubmit}>
             <Form.Field>

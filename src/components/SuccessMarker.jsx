@@ -4,7 +4,7 @@ import { CgSearchFound } from 'react-icons/cg';
 import { selectSuccessfulSearches } from '../features/searches/searchesSlice';
 import { useZoom } from '../features/game/gameHooks.js';
 
-const SuccessMarker = ({ coord: { x, y }, height = 125, width = 125 }) => {
+const SuccessMarker = ({ coord: { x, y }, height = 100, width = 100 }) => {
   const zoom = useZoom();
 
   return (

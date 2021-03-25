@@ -32,7 +32,6 @@ const TimerMessage = ({ setModalShow }) => {
           setModalShow(true);
         }}
         textColor="primary"
-        active
       >
         Submit Time of {Math.ceil(timeElapsed)} s
       </Navbar.Item>

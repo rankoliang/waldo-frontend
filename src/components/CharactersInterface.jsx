@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux';
 import { Navbar } from 'react-bulma-components';
-import { Link } from 'react-router-dom';
 import TimerMessage from './TimerMessage';
 import { selectPhase } from '../features/game/gameSlice';
 import {

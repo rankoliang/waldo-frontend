@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { Hero, Heading, Container, Button } from 'react-bulma-components';
 import { fetchLeaderboard } from '../helpers';
 import ErrorBoundary from './ErrorBoundary';
@@ -7,14 +7,16 @@ import LoadingHandler from './LoadingHandler';
 import { Link } from 'react-router-dom';
 import LeaderboardTable from './LeaderboardTable';
 
-const Leaderboard = ({ initialPage = 1 }) => {
+const Leaderboard = () => {
   const { levelId } = useParams();
+  const position =
+    new URLSearchParams(useLocation().search).get('position') || null;
   const [scores, setScores] = useState([]);
   const [level, setLevel] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [leaderboardLoading, setLeaderboardLoading] = useState(true);
-  const [page, setPage] = useState(initialPage);
+  const [page, setPage] = useState(position ? Math.ceil(position / 20) : 1);
   const [pages, setPages] = useState(1);
 
   useEffect(() => {
@@ -58,6 +60,7 @@ const Leaderboard = ({ initialPage = 1 }) => {
             page={page}
             pages={pages}
             setPage={setPage}
+            position={position}
           />
         </LoadingHandler>
       </LoadingHandler>

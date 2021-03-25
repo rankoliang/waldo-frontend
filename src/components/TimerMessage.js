@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Navbar, Button } from 'react-bulma-components';
+import { Navbar } from 'react-bulma-components';
 import {
   selectStartTime,
   selectTotalMilliseconds,

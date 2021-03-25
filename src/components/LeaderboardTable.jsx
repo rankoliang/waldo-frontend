@@ -1,6 +1,7 @@
 import { Table, Container, Pagination } from 'react-bulma-components';
+import classNames from 'classnames';
 
-const LeaderboardTable = ({ scores, page, pages, setPage }) => {
+const LeaderboardTable = ({ scores, page, pages, setPage, position }) => {
   return (
     <Container fluid>
       <Pagination
@@ -20,9 +21,13 @@ const LeaderboardTable = ({ scores, page, pages, setPage }) => {
         </thead>
         <tbody>
           {scores.map((score, i) => {
+            const rank = i + 1 + (page - 1) * 20;
             return (
-              <tr key={i}>
-                <th className="min">{i + 1 + (page - 1) * 20}</th>
+              <tr
+                key={i}
+                className={classNames({ 'is-selected': rank == position })}
+              >
+                <th className="min">{rank}</th>
                 <td className="fill">{score.name}</td>
                 <td className="min">
                   {(score.milliseconds / 1000).toFixed(2)} s

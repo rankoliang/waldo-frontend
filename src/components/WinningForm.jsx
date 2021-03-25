@@ -33,8 +33,11 @@ const WinningForm = ({ show = false, setModalShow }) => {
       name,
       milliseconds: totalMilliseconds,
     })
-      .then(() => {
-        history.push(location.pathname + '/leaderboard');
+      .then(({ position }) => {
+        history.push({
+          pathname: location.pathname + '/leaderboard',
+          search: `?position=${position}`,
+        });
       })
       .catch(({ errors }) => {
         setErrors(errors);

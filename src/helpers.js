@@ -87,6 +87,5 @@ export const postToLeaderboard = createApiFetch({
     method: 'POST',
     mode: 'no-cors',
   },
-  expectResponse: false,
   returnJsonOnError: true,
 });

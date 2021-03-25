@@ -25,7 +25,9 @@ const LeaderboardTable = ({ scores, page, pages, setPage, position }) => {
             return (
               <tr
                 key={i}
-                className={classNames({ 'is-selected': rank == position })}
+                className={classNames({
+                  'is-selected': rank === Number(position),
+                })}
               >
                 <th className="min">{rank}</th>
                 <td className="fill">{score.name}</td>

@@ -4,6 +4,7 @@ import { menuHidden, useMenu } from '../features/menu/menuSlice';
 import { useZoom } from '../features/game/gameHooks';
 import { searchForCharacter } from '../features/searches/searchesSlice';
 import { selectLevel } from '../features/game/gameSlice';
+import { Image } from 'react-bulma-components';
 
 const CharacterSelectMenu = (setError) => {
   const dispatch = useDispatch();
@@ -40,7 +41,7 @@ const CharacterSelectMenu = (setError) => {
           onClick={createHandleOnClick(character)}
           key={character.id}
         >
-          {character.name}
+          <Image src={character.avatar_path} size={48} />
         </div>
       ))}
     </div>

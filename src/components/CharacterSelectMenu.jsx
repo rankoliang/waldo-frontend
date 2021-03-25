@@ -18,12 +18,11 @@ const CharacterSelectMenu = (setError) => {
   if (!menu.visible) return null;
 
   const {
+    coords,
     coords: { x, y },
   } = menu;
 
   const createHandleOnClick = (character) => () => {
-    const coords = { x: x / zoom, y: y / zoom };
-
     dispatch(searchForCharacter({ level, coords, character, setError }));
     menuStore.dispatch(menuHidden());
   };
@@ -33,7 +32,7 @@ const CharacterSelectMenu = (setError) => {
   return (
     <div
       className="dropdown-content character-select-menu"
-      style={{ top: y, left: x }}
+      style={{ top: y * zoom, left: x * zoom }}
     >
       {undiscoveredCharacters.map((character) => (
         <div

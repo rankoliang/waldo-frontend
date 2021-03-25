@@ -19,6 +19,13 @@ body,
   height: 100%;
 }
 
+.scrollable-image {
+  transition: transform 0.3s;
+  vertical-align: bottom;
+  position: absolute;
+  transform-origin: top left;
+}
+
 .progress-bar {
   margin: 1em 0;
   width: 100%;

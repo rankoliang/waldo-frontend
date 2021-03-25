@@ -24,10 +24,6 @@ const GameCanvas = (props) => {
   const gamePhase = useSelector(selectPhase);
 
   const handleClick = ({ nativeEvent: { offsetX: x, offsetY: y } }) => {
-    // zoom = event.target.style.zoom
-    // Log coordinates for backend
-    // console.log({ x: Math.floor(x / zoom), y: Math.ceil(y / zoom) });
-
     if (menuStore.state.visible) {
       menuStore.dispatch(menuHidden());
     } else {

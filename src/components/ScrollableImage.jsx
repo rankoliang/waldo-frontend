@@ -34,11 +34,11 @@ const ScrollableImage = ({ src, alt, children, ...props }) => {
   return (
     <div className="scrollable-wrapper" ref={wrapperEl}>
       <img
+        className="scrollable-image"
         style={{
-          verticalAlign: 'bottom',
           minHeight: height,
           minWidth: width,
-          zoom,
+          transform: `scale(${zoom})`,
         }}
         src={src}
         alt={alt}

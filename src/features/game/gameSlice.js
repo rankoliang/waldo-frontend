@@ -6,6 +6,7 @@ import {
 
 import { charactersReset } from '../characters/charactersSlice';
 import { searchesReset } from '../searches/searchesSlice';
+import { clamp } from '../../helpers';
 
 export const gameStarted = createAsyncThunk(
   'gameStartedStatus',
@@ -25,6 +26,7 @@ export const gameEnded = createAsyncThunk('gameEndedStatus', async () => {
 const getInitialState = () => {
   return {
     zoom: 1,
+    magnification: 1,
     level: null,
     startTime: null,
     endTime: null,
@@ -56,6 +58,14 @@ const gameSlice = createSlice({
         return { payload: { level } };
       },
     },
+    gameMagnified: (state, action) => {
+      const magnification = action.payload;
+
+      state.magnification = clamp(state.magnification * magnification, 1, 3.5);
+    },
+    magnificationReset: (state) => {
+      state.magnification = 1;
+    },
     gameExited: (state) => {
       state.phase = null;
     },
@@ -77,7 +87,7 @@ const gameSlice = createSlice({
   },
 });
 
-export const selectZoom = (state) => state.game.zoom;
+export const selectZoom = (state) => state.game.zoom * state.game.magnification;
 export const selectLevel = (state) => state.game.level;
 export const selectStartTime = createSelector(
   (state) => state.game.startTime,
@@ -99,6 +109,13 @@ export const selectTotalMilliseconds = createSelector(
 
 export const selectPhase = (state) => state.game.phase;
 
-export const { zoomSet, levelSet, gameReset, gameExited } = gameSlice.actions;
+export const {
+  zoomSet,
+  levelSet,
+  gameReset,
+  gameExited,
+  gameMagnified,
+  magnificationReset,
+} = gameSlice.actions;
 
 export default gameSlice.reducer;

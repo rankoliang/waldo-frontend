@@ -8,19 +8,29 @@ import {
   selectCharactersFound,
   selectCharactersNotFound,
 } from '../../features/characters/charactersSlice';
-import { gameEnded } from '../../features/game/gameSlice';
+import {
+  gameEnded,
+  tokenSet,
+  selectToken,
+  durationSet,
+} from '../../features/game/gameSlice';
 import { fetchFound } from '../../helpers';
 
 export const searchForCharacter = createAsyncThunk(
   'searchForCharacterStatus',
   async ({ level, coords, setError, character }, { getState, dispatch }) => {
     if (selectCharactersFound(getState())[character.id]) return;
+    const token = selectToken(getState());
 
-    fetchFound({ level, character, coords })
-      .then(({ found }) => {
+    fetchFound({ level, character, coords, token })
+      .then(({ found, token, duration }) => {
         if (found) {
           dispatch(characterFound(character));
           dispatch(searchSuccessful({ character, coords }));
+          dispatch(tokenSet({ token }));
+          if (duration) {
+            dispatch(durationSet({ duration }));
+          }
           handleTurnEnd({ getState, dispatch });
         } else {
           dispatch(searchFailed(coords));

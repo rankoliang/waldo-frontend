@@ -28,6 +28,8 @@ const getInitialState = () => {
     zoom: 1,
     magnification: 1,
     level: null,
+    token: null,
+    duration: null,
     startTime: null,
     endTime: null,
     phase: null,
@@ -66,6 +68,16 @@ const gameSlice = createSlice({
     magnificationReset: (state) => {
       state.magnification = 1;
     },
+    tokenSet: (state, action) => {
+      const { token } = action.payload;
+
+      state.token = token;
+    },
+    durationSet: (state, action) => {
+      const { duration } = action.payload;
+
+      state.duration = duration;
+    },
     gameExited: (state) => {
       state.phase = null;
     },
@@ -89,22 +101,11 @@ const gameSlice = createSlice({
 
 export const selectZoom = (state) => state.game.zoom * state.game.magnification;
 export const selectLevel = (state) => state.game.level;
+export const selectToken = (state) => state.game.token;
+export const selectDuration = (state) => state.game.duration;
 export const selectStartTime = createSelector(
   (state) => state.game.startTime,
   (jsonDate) => new Date(jsonDate)
-);
-
-export const selectTotalMilliseconds = createSelector(
-  (state) => state.game.startTime,
-  (state) => state.game.endTime,
-  (startDateJSON, endDateJSON) => {
-    if (!startDateJSON || !endDateJSON) return null;
-
-    const startDate = new Date(startDateJSON);
-    const endDate = new Date(endDateJSON);
-
-    return endDate - startDate;
-  }
 );
 
 export const selectPhase = (state) => state.game.phase;
@@ -116,6 +117,8 @@ export const {
   gameExited,
   gameMagnified,
   magnificationReset,
+  tokenSet,
+  durationSet,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;

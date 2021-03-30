@@ -3,27 +3,27 @@ import { useSelector } from 'react-redux';
 import { Navbar } from 'react-bulma-components';
 import {
   selectStartTime,
-  selectTotalMilliseconds,
+  selectDuration,
   selectPhase,
 } from '../features/game/gameSlice';
 
 const TimerMessage = ({ setModalShow }) => {
   const startTime = useSelector(selectStartTime);
-  const totalMilliseconds = useSelector(selectTotalMilliseconds);
+  const duration = useSelector(selectDuration);
   const gamePhase = useSelector(selectPhase);
   const [timeElapsed, setTimeElapsed] = useState(0);
 
   useEffect(() => {
-    if (!totalMilliseconds) {
+    if (!duration) {
       const timer = setTimeout(() => {
         setTimeElapsed(Math.round((new Date() - startTime) / 1000));
       }, 1000);
 
       return () => clearTimeout(timer);
     } else {
-      setTimeElapsed(totalMilliseconds / 1000);
+      setTimeElapsed(duration / 1000);
     }
-  }, [totalMilliseconds, timeElapsed, startTime]);
+  }, [duration, timeElapsed, startTime]);
 
   if (gamePhase === 'ended') {
     return (

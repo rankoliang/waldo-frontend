@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
+  tokenSet,
   selectPhase,
-  selectTotalMilliseconds,
+  selectToken,
+  selectDuration,
 } from '../features/game/gameSlice';
 import { Modal, Section, Form, Button, Heading } from 'react-bulma-components';
 import { postToLeaderboard } from '../helpers';
@@ -14,7 +16,9 @@ const WinningForm = ({ show = false, setModalShow }) => {
   const { levelId } = useParams();
   const [errors, setErrors] = useState({});
   const gamePhase = useSelector(selectPhase);
-  const totalMilliseconds = useSelector(selectTotalMilliseconds);
+  const duration = useSelector(selectDuration);
+  const token = useSelector(selectToken);
+  const dispatch = useDispatch();
 
   const [name, setName] = useState('Anonymous');
 
@@ -31,7 +35,7 @@ const WinningForm = ({ show = false, setModalShow }) => {
     postToLeaderboard({
       levelId,
       name,
-      milliseconds: totalMilliseconds,
+      token,
     })
       .then(({ position }) => {
         history.push({
@@ -41,6 +45,9 @@ const WinningForm = ({ show = false, setModalShow }) => {
       })
       .catch(({ errors }) => {
         setErrors(errors);
+      })
+      .finally(() => {
+        dispatch(tokenSet({ token: null }));
       });
   };
 
@@ -53,8 +60,7 @@ const WinningForm = ({ show = false, setModalShow }) => {
       <Modal.Content>
         <Section style={{ backgroundColor: 'white' }}>
           <Heading>
-            You finished the level in {(totalMilliseconds / 1000).toFixed(2)}{' '}
-            seconds!
+            You finished the level in {(duration / 1000).toFixed(2)} seconds!
           </Heading>
           <form onSubmit={handleOnSubmit}>
             <Form.Field>

@@ -69,9 +69,9 @@ export const fetchLevelCharacters = createApiFetch({
 });
 
 export const fetchFound = createApiFetch({
-  getPath: ({ level, character, coords }) =>
+  getPath: ({ level, character, coords, token }) =>
     `/levels/${level.id}/search_areas/${character.search_area_id}/search?` +
-    new URLSearchParams(coords),
+    new URLSearchParams({ token, ...coords }),
 });
 
 export const fetchLeaderboard = createApiFetch({
@@ -80,9 +80,9 @@ export const fetchLeaderboard = createApiFetch({
 });
 
 export const postToLeaderboard = createApiFetch({
-  getPath: ({ levelId, name, milliseconds }) =>
+  getPath: ({ levelId, name, milliseconds, token }) =>
     `/levels/${levelId}/leaderboard?` +
-    new URLSearchParams({ name, milliseconds }),
+    new URLSearchParams({ name, milliseconds, token }),
   opts: {
     method: 'POST',
     mode: 'no-cors',

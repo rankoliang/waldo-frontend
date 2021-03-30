@@ -1,12 +1,12 @@
 import { useDispatch } from 'react-redux';
-import { fetchLevel, fetchLevelCharacters } from '../helpers';
+import { fetchLevel } from '../helpers';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import GameCanvas from './GameCanvas';
 import ErrorBoundary from './ErrorBoundary';
 import LoadingHandler from './LoadingHandler';
 import { charactersSet } from '../features/characters/charactersSlice';
-import { levelSet, gameStarted } from '../features/game/gameSlice';
+import { levelSet, gameStarted, tokenSet } from '../features/game/gameSlice';
 
 const Level = () => {
   const { levelId } = useParams();
@@ -28,13 +28,11 @@ const Level = () => {
 
   useEffect(() => {
     fetchLevel(levelId)
-      .then(({ level }) => {
+      .then(({ characters, token, ...level }) => {
         dispatch(levelSet(level));
-        return level;
-      })
-      .then(fetchLevelCharacters)
-      .then((characters) => {
         dispatch(charactersSet(characters));
+        dispatch(tokenSet({ token }));
+        return level;
       })
       .catch(setError)
       .finally(() => {

@@ -80,9 +80,8 @@ export const fetchLeaderboard = createApiFetch({
 });
 
 export const postToLeaderboard = createApiFetch({
-  getPath: ({ levelId, name, milliseconds, token }) =>
-    `/levels/${levelId}/leaderboard?` +
-    new URLSearchParams({ name, milliseconds, token }),
+  getPath: ({ levelId, name, token }) =>
+    `/levels/${levelId}/leaderboard?` + new URLSearchParams({ name, token }),
   opts: {
     method: 'POST',
     mode: 'no-cors',

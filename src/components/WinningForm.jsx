@@ -62,6 +62,9 @@ const WinningForm = ({ show = false, setModalShow }) => {
           <Heading>
             You finished the level in {(duration / 1000).toFixed(2)} seconds!
           </Heading>
+          {errors?.token && (
+            <Form.Help color="danger">{errors?.token}</Form.Help>
+          )}
           <form onSubmit={handleOnSubmit}>
             <Form.Field>
               <Form.Label htmlFor="display-name">Name</Form.Label>
@@ -76,8 +79,8 @@ const WinningForm = ({ show = false, setModalShow }) => {
                   required
                 />
               </Form.Control>
-              {errors.name &&
-                errors.name.map((err) => (
+              {errors?.name &&
+                errors?.name.map((err) => (
                   <Form.Help color="danger">Name {err}</Form.Help>
                 ))}
             </Form.Field>

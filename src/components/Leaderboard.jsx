@@ -20,7 +20,9 @@ const Leaderboard = () => {
   const [pages, setPages] = useState(1);
 
   useEffect(() => {
-    setLeaderboardLoading(true);
+    const lbtimeout = setTimeout(() => {
+      setLeaderboardLoading(true);
+    },50);
 
     fetchLeaderboard(levelId, page)
       .then(({ level, scores, pages }) => {
@@ -34,6 +36,7 @@ const Leaderboard = () => {
       .catch(setError)
       .finally(() => {
         setLoading(false);
+        clearTimeout(lbtimeout)
         setLeaderboardLoading(false);
       });
   }, [levelId, page]);

@@ -2,10 +2,10 @@
 
 APP_ENV=dev
 
-while getopts ":e:" arg; do
+while getopts ":p" arg; do
   case $arg in
-    e)
-      APP_ENV=$OPTARG
+    p)
+      APP_ENV=prod
       ;;
   esac
 done
@@ -31,7 +31,8 @@ if [ $1 ]; then
       run "$@"
       ;;
     rails)
-      run api "$@"
+      shift
+      run api bin/rails "$@"
       ;;
     api | web | redis | db)
       run "$@"

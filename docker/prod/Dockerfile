@@ -1,4 +1,4 @@
-FROM node:15.12.0-alpine3.13 as build
+FROM node:15.12.0-alpine3.13
 
 WORKDIR /app
 
@@ -9,12 +9,3 @@ COPY public/ public/
 COPY src/ src/
 
 RUN yarn build
-
-FROM nginx:1.19.9-alpine
-
-COPY --from=build /app/build /usr/share/nginx/html
-COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]

@@ -1,12 +1,12 @@
 import { useDispatch } from 'react-redux';
-import { fetchLevel } from '../helpers';
+import { fetchLevel } from '../../helpers';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import GameCanvas from './GameCanvas';
-import ErrorBoundary from './ErrorBoundary';
-import LoadingHandler from './LoadingHandler';
-import { charactersSet } from '../features/characters/charactersSlice';
-import { levelSet, gameStarted, tokenSet } from '../features/game/gameSlice';
+import ErrorBoundary from '../ErrorBoundary';
+import LoadingHandler from '../LoadingHandler';
+import { charactersSet } from '../../features/characters/charactersSlice';
+import { levelSet, gameStarted, tokenSet } from '../../features/game/gameSlice';
 
 const Level = () => {
   const { levelId } = useParams();

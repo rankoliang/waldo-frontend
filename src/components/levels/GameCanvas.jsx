@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import TransformableImage from './TransformableImage';
-import ErrorBoundary from './ErrorBoundary';
-import MenuContext from '../features/menu/MenuContext';
+import ErrorBoundary from '../ErrorBoundary';
+import MenuContext from '../../features/menu/MenuContext';
 import {
   menuHidden,
   menuShown,
   useMenuStore,
-} from '../features/menu/menuSlice';
-import { selectLevel, selectPhase } from '../features/game/gameSlice';
-import { SuccessMarkers } from './SuccessMarker';
-import { FailureMarkers } from './FailureMarker';
+} from '../../features/menu/menuSlice';
+import { selectLevel, selectPhase } from '../../features/game/gameSlice';
+import { SuccessMarkers } from '../SuccessMarker';
+import { FailureMarkers } from '../FailureMarker';
 import WinningForm from './WinningForm';
 
 const GameCanvas = (props) => {

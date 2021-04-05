@@ -1,10 +1,10 @@
 import 'react-bulma-components/dist/react-bulma-components.min.css';
 import SiteNavbar from './components/SiteNavbar';
-import Levels from './components/Levels';
+import Levels from './components/levels/index';
 import './App.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { Level } from './components/Level';
-import Leaderboard from './components/Leaderboard';
+import { Level } from './components/levels/Level';
+import Leaderboard from './components/leaderboard/index';
 
 function App() {
   return (

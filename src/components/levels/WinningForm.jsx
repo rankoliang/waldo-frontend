@@ -5,9 +5,9 @@ import {
   selectPhase,
   selectToken,
   selectDuration,
-} from '../features/game/gameSlice';
+} from '../../features/game/gameSlice';
 import { Modal, Section, Form, Button, Heading } from 'react-bulma-components';
-import { postToLeaderboard } from '../helpers';
+import { postToLeaderboard } from '../../helpers';
 import { useParams, useHistory, useLocation } from 'react-router-dom';
 
 const WinningForm = ({ show = false, setModalShow }) => {

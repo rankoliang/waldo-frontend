@@ -8,8 +8,8 @@ import {
 } from 'react-bulma-components';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { fetchLevels } from '../helpers';
-import ErrorBoundary from './ErrorBoundary';
+import { fetchLevels } from '../../helpers';
+import ErrorBoundary from '../ErrorBoundary';
 
 const useLevels = () => {
   const [loading, setLoading] = useState(true);

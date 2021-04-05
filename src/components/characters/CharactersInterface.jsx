@@ -1,11 +1,11 @@
 import { useSelector } from 'react-redux';
 import { Navbar } from 'react-bulma-components';
-import TimerMessage from './TimerMessage';
-import { selectPhase } from '../features/game/gameSlice';
+import TimerMessage from '../TimerMessage';
+import { selectPhase } from '../../features/game/gameSlice';
 import {
   useCharacters,
   useCharactersFound,
-} from '../features/characters/CharactersHooks';
+} from '../../features/characters/CharactersHooks';
 import { AiOutlineZoomIn, AiOutlineZoomOut } from 'react-icons/ai';
 
 const CharactersInterface = ({ zoomIn, zoomOut, setModalShow }) => {

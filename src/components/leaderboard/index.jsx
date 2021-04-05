@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { Hero, Heading, Container, Button } from 'react-bulma-components';
-import { fetchLeaderboard } from '../helpers';
-import ErrorBoundary from './ErrorBoundary';
-import LoadingHandler from './LoadingHandler';
+import { fetchLeaderboard } from '../../helpers';
+import ErrorBoundary from '../ErrorBoundary';
+import LoadingHandler from '../LoadingHandler';
 import { Link } from 'react-router-dom';
 import LeaderboardTable from './LeaderboardTable';
 
@@ -22,7 +22,7 @@ const Leaderboard = () => {
   useEffect(() => {
     const lbtimeout = setTimeout(() => {
       setLeaderboardLoading(true);
-    },50);
+    }, 50);
 
     fetchLeaderboard(levelId, page)
       .then(({ level, scores, pages }) => {
@@ -36,7 +36,7 @@ const Leaderboard = () => {
       .catch(setError)
       .finally(() => {
         setLoading(false);
-        clearTimeout(lbtimeout)
+        clearTimeout(lbtimeout);
         setLeaderboardLoading(false);
       });
   }, [levelId, page]);

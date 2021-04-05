@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { selectCharactersNotFound } from '../features/characters/charactersSlice';
-import { menuHidden, useMenu } from '../features/menu/menuSlice';
-import { searchForCharacter } from '../features/searches/searchesSlice';
-import { selectLevel } from '../features/game/gameSlice';
+import { selectCharactersNotFound } from '../../features/characters/charactersSlice';
+import { menuHidden, useMenu } from '../../features/menu/menuSlice';
+import { searchForCharacter } from '../../features/searches/searchesSlice';
+import { selectLevel } from '../../features/game/gameSlice';
 import { Image } from 'react-bulma-components';
 
 const CharacterSelectMenu = ({ setError, scale = 1 }) => {

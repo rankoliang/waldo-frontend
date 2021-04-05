@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
-import CharactersInterface from './CharactersInterface';
-import CharacterSelectMenu from './CharacterSelectMenu';
+import CharactersInterface from '../characters/CharactersInterface';
+import CharacterSelectMenu from '../characters/CharacterSelectMenu';
 import LevelImage from './LevelImage';
 
 const TransformableImage = ({

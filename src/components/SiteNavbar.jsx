@@ -13,7 +13,7 @@ const GameNavbar = () => {
           to="/"
           activeClassName="is-active"
         >
-          Where's Waldo?
+          <strong>Where's Waldo?</strong>
         </Navbar.Item>
         {match && (
           <Navbar.Item

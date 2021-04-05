@@ -14,9 +14,13 @@ const ScrollableImage = ({
 }) => {
   const [minScale, setMinScale] = useState(undefined);
   const [clickStart, setClickStart] = useState(null);
-  const [onDismount, setOnDismount] = useState(() => {});
+  const [onDismount, setOnDismount] = useState(null);
 
-  useEffect(() => onDismount, [onDismount]);
+  useEffect(() => {
+    if (onDismount) {
+      return onDismount;
+    }
+  }, [onDismount]);
 
   const handleMouseDown = ({ nativeEvent: { clientX, clientY } }) => {
     setClickStart({ clientX, clientY });
@@ -85,13 +89,10 @@ const ScrollableImage = ({
 
                   updateMinScale();
 
-                  const resizeListener = window.addEventListener(
-                    'resize',
-                    updateMinScale
-                  );
+                  window.addEventListener('resize', updateMinScale);
 
                   setOnDismount(() => {
-                    window.removeEventListener('resize', resizeListener);
+                    window.removeEventListener('resize', updateMinScale);
                   });
                 }, 20);
               }}

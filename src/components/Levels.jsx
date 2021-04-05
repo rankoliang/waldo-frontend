@@ -1,4 +1,4 @@
-import { Button, Card, Container } from 'react-bulma-components';
+import { Button, Card, Container, Columns } from 'react-bulma-components';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { fetchLevels } from '../helpers';
@@ -25,19 +25,26 @@ const Levels = () => {
   const { levels, error } = useLevels();
 
   return (
-    <Container fluid>
-      <ErrorBoundary error={error}>
-        {levels.map((level) => (
-          <LevelCard level={level} key={level.id} />
-        ))}
-      </ErrorBoundary>
+    <Container>
+      <Columns breakpoint="desktop" className="m-4">
+        <ErrorBoundary error={error}>
+          {levels.map((level) => (
+            <Columns.Column
+              mobile={{ size: 'full' }}
+              desktop={{ size: 'half' }}
+            >
+              <LevelCard level={level} key={level.id} />
+            </Columns.Column>
+          ))}
+        </ErrorBoundary>
+      </Columns>
     </Container>
   );
 };
 
 const LevelCard = ({ level: { id, title, image_path } }) => {
   return (
-    <Card className="level-card">
+    <Card>
       <Link to={`/levels/${id}`}>
         <Card.Image src={image_path} className="level-card__thumbnail" />
       </Link>

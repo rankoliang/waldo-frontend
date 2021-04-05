@@ -1,15 +1,14 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Navbar } from 'react-bulma-components';
 import TimerMessage from './TimerMessage';
-import { selectPhase, gameMagnified } from '../features/game/gameSlice';
+import { selectPhase } from '../features/game/gameSlice';
 import {
   useCharacters,
   useCharactersFound,
 } from '../features/characters/CharactersHooks';
 import { AiOutlineZoomIn, AiOutlineZoomOut } from 'react-icons/ai';
 
-const CharactersInterface = ({ setModalShow }) => {
-  const dispatch = useDispatch();
+const CharactersInterface = ({ zoomIn, zoomOut, setModalShow }) => {
   const characters = useCharacters();
   const charactersFound = useCharactersFound();
   const gamePhase = useSelector(selectPhase);
@@ -23,18 +22,10 @@ const CharactersInterface = ({ setModalShow }) => {
     >
       <Navbar.Brand>
         <TimerMessage setModalShow={setModalShow} />
-        <Navbar.Item
-          onClick={() => {
-            dispatch(gameMagnified(1.25));
-          }}
-        >
+        <Navbar.Item onClick={zoomIn}>
           <AiOutlineZoomIn style={{ fontSize: '1.5rem' }} />
         </Navbar.Item>
-        <Navbar.Item
-          onClick={() => {
-            dispatch(gameMagnified(0.8));
-          }}
-        >
+        <Navbar.Item onClick={zoomOut}>
           <AiOutlineZoomOut style={{ fontSize: '1.5rem' }} />
         </Navbar.Item>
         {gamePhase !== 'ended' &&

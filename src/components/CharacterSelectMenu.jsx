@@ -1,16 +1,14 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { selectCharactersNotFound } from '../features/characters/charactersSlice';
 import { menuHidden, useMenu } from '../features/menu/menuSlice';
-import { useZoom } from '../features/game/gameHooks';
 import { searchForCharacter } from '../features/searches/searchesSlice';
 import { selectLevel } from '../features/game/gameSlice';
 import { Image } from 'react-bulma-components';
 
-const CharacterSelectMenu = (setError) => {
+const CharacterSelectMenu = ({ setError, scale = 1 }) => {
   const dispatch = useDispatch();
   const level = useSelector(selectLevel);
 
-  const zoom = useZoom();
   const undiscoveredCharacters = useSelector(selectCharactersNotFound);
   const menuStore = useMenu();
   const { state: menu } = menuStore;
@@ -32,7 +30,7 @@ const CharacterSelectMenu = (setError) => {
   return (
     <div
       className="dropdown-content character-select-menu"
-      style={{ top: y * zoom, left: x * zoom }}
+      style={{ top: y, left: x, transform: `scale(${1 / scale})` }}
     >
       {undiscoveredCharacters.map((character) => (
         <div
@@ -40,7 +38,7 @@ const CharacterSelectMenu = (setError) => {
           onClick={createHandleOnClick(character)}
           key={character.id}
         >
-          <Image src={character.avatar_path} size={48} />
+          <Image src={character.avatar_path} size={64} />
         </div>
       ))}
     </div>

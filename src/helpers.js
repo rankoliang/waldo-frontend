@@ -88,7 +88,3 @@ export const postToLeaderboard = createApiFetch({
   },
   returnJsonOnError: true,
 });
-
-export const clamp = (value, min, max) => {
-  return Math.max(min, Math.min(value, max));
-};

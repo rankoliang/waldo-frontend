@@ -30,6 +30,22 @@ body,
   transform-origin: top left;
 }
 
+.level-image {
+  overflow: visible;
+  object-fit: none;
+  pointer-events: auto !important;
+}
+
+.react-transform-component {
+  width: initial !important;
+  height: initial !important;
+}
+
+.react-transform-element {
+  width: var(--image-width) !important;
+  height: var(--image-height) !important;
+}
+
 .progress-bar {
   margin: 1em 0;
   width: 100%;
@@ -62,6 +78,7 @@ body,
 .character-select-menu {
   background: white;
   position: absolute;
+  transform-origin: top left;
 }
 
 .leaderboard__title {

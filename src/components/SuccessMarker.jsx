@@ -2,19 +2,16 @@ import { useSelector } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
 import { CgSearchFound } from 'react-icons/cg';
 import { selectSuccessfulSearches } from '../features/searches/searchesSlice';
-import { useZoom } from '../features/game/gameHooks.js';
 
 const SuccessMarker = ({ coord: { x, y }, height = 100, width = 100 }) => {
-  const zoom = useZoom();
-
   return (
     <CgSearchFound
       className="marker marker-success"
       style={{
-        top: `${(y - height / 2) * zoom}px`,
-        left: `${(x - width / 2) * zoom}px`,
-        height: `${height * zoom}px`,
-        width: `${width * zoom}px`,
+        top: `${y - height / 2}px`,
+        left: `${x - width / 2}px`,
+        height: `${height}px`,
+        width: `${width}px`,
       }}
     />
   );
@@ -22,10 +19,10 @@ const SuccessMarker = ({ coord: { x, y }, height = 100, width = 100 }) => {
 
 export default SuccessMarker;
 
-export const SuccessMarkers = ({ zoom }) => {
+export const SuccessMarkers = () => {
   const successes = useSelector(selectSuccessfulSearches);
 
   return successes.map((coord) => (
-    <SuccessMarker coord={coord} key={nanoid()} zoom={zoom} />
+    <SuccessMarker coord={coord} key={nanoid()} />
   ));
 };

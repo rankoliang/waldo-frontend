@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import ScrollableImage from './ScrollableImage';
-import CharactersInterface from './CharactersInterface';
 import ErrorBoundary from './ErrorBoundary';
-import CharacterSelectMenu from './CharacterSelectMenu';
 import MenuContext from '../features/menu/MenuContext';
 import {
   menuHidden,
@@ -43,14 +41,14 @@ const GameCanvas = (props) => {
         <ScrollableImage
           src={image_path}
           alt="Find Waldo!"
-          onClick={handleClick}
+          setModalShow={setModalShow}
+          handleClick={handleClick}
+          setError={setError}
           {...props}
         >
           <SuccessMarkers />
           <FailureMarkers />
-          <CharacterSelectMenu setError={setError} />
         </ScrollableImage>
-        <CharactersInterface setModalShow={setModalShow} />
       </MenuContext.Provider>
       <WinningForm show={modalShow} setModalShow={setModalShow} />
     </ErrorBoundary>

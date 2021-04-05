@@ -29,11 +29,8 @@ const Levels = () => {
       <Columns breakpoint="desktop" className="m-4">
         <ErrorBoundary error={error}>
           {levels.map((level) => (
-            <Columns.Column
-              mobile={{ size: 'full' }}
-              desktop={{ size: 'half' }}
-            >
-              <LevelCard level={level} key={level.id} />
+            <Columns.Column desktop={{ size: 'half' }} key={level.id}>
+              <LevelCard level={level} />
             </Columns.Column>
           ))}
         </ErrorBoundary>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import ScrollableImage from './ScrollableImage';
+import TransformableImage from './TransformableImage';
 import ErrorBoundary from './ErrorBoundary';
 import MenuContext from '../features/menu/MenuContext';
 import {
@@ -38,7 +38,7 @@ const GameCanvas = (props) => {
   return (
     <ErrorBoundary error={error}>
       <MenuContext.Provider value={menuStore}>
-        <ScrollableImage
+        <TransformableImage
           src={image_path}
           alt="Find Waldo!"
           setModalShow={setModalShow}
@@ -48,7 +48,7 @@ const GameCanvas = (props) => {
         >
           <SuccessMarkers />
           <FailureMarkers />
-        </ScrollableImage>
+        </TransformableImage>
       </MenuContext.Provider>
       <WinningForm show={modalShow} setModalShow={setModalShow} />
     </ErrorBoundary>

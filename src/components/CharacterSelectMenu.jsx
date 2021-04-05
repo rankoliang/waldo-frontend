@@ -38,7 +38,7 @@ const CharacterSelectMenu = ({ setError, scale = 1 }) => {
           onClick={createHandleOnClick(character)}
           key={character.id}
         >
-          <Image src={character.avatar_path} size={64} />
+          <Image src={character.avatar_path} size={48} />
         </div>
       ))}
     </div>

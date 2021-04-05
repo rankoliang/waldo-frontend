@@ -1,4 +1,11 @@
-import { Button, Card, Container, Columns } from 'react-bulma-components';
+import {
+  Button,
+  Card,
+  Container,
+  Columns,
+  Footer,
+  Content,
+} from 'react-bulma-components';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { fetchLevels } from '../helpers';
@@ -25,17 +32,34 @@ const Levels = () => {
   const { levels, error } = useLevels();
 
   return (
-    <Container>
-      <Columns breakpoint="desktop" className="m-4">
-        <ErrorBoundary error={error}>
-          {levels.map((level) => (
-            <Columns.Column desktop={{ size: 'half' }} key={level.id}>
-              <LevelCard level={level} />
-            </Columns.Column>
-          ))}
-        </ErrorBoundary>
-      </Columns>
-    </Container>
+    <>
+      <Container>
+        <Columns breakpoint="desktop" className="m-4">
+          <ErrorBoundary error={error}>
+            {levels.map((level) => (
+              <Columns.Column desktop={{ size: 'half' }} key={level.id}>
+                <LevelCard level={level} />
+              </Columns.Column>
+            ))}
+          </ErrorBoundary>
+        </Columns>
+      </Container>
+      <Footer>
+        <Container>
+          <Content style={{ textAlign: 'center' }}>
+            <p>
+              <div>
+                Made by <a href="https://github.com/rankoliang/">Ranko Liang</a>
+                .
+              </div>
+              <div>
+                <strong>Not an official Where's Waldo website.</strong>
+              </div>
+            </p>
+          </Content>
+        </Container>
+      </Footer>
+    </>
   );
 };
 

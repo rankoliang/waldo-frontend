@@ -44,7 +44,7 @@ const Levels = () => {
           </ErrorBoundary>
         </Columns>
       </Container>
-      <Footer>
+      <Footer className="mt-4">
         <Container>
           <Content style={{ textAlign: 'center' }}>
             <p>

@@ -1,70 +1,55 @@
-# Getting Started with Create React App
+# Where's Waldo Client
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the client for the Where's Waldo app hosted at https://waldo.rankoliang.com/.
 
-## Available Scripts
+The backend repository for this application can be found at https://github.com/rankoliang/waldo-api/.
 
-In the project directory, you can run:
+Techonologies used: react, rails, nginx, redis, docker, AWS.
 
-### `yarn start`
+## How to Play
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Select a level from the homepage.
+- Click the image where you see one of the characters.
+- Select the character from the dropdown menu
+- Repeat until you have found all of the characters for a level.
+- Submit your time!
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Setup
 
-### `yarn test`
+You will need to clone the backend repository linked again [here](https://github.com/rankoliang/waldo-api/).
+Also, set up the environment variables at `dev.env` according to the variables in `dev.env.sample` in the repository
+you are running `docker-compose` from.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This application uses docker to run.
 
-### `yarn build`
+To set up your development environment, you must have
+[docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/) installed.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+There is a `bin/dc` script to run docker-compose with the appropriate configurations depending on your environment.
+There is also a Makefile available where you can run some preselected commands.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+With a `-p` flag, you will run the commands for production and without it, you will run the commands in development mode.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**WARNING** You will have to change the domain on nginx and the certbot script to run this in production. Certbot may
+need some additional setup before this repo is ready to be deployed for production.
 
-### `yarn eject`
+### Building the docker containers
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+To build the docker containers, run `make build` or `bin/dc build`.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Running the development server
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+To run the docker containers, run `make up` or `bin/dc up -d`.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+You can visit localhost at port 3000 to open the site.
 
-## Learn More
+### Running the test suites
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Frontend
+  - `bin/dc web yarn test`
+- api
+  - `bin/dc api bundle exec rspec`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### More commands
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+See the the `Makefile` and `bin/dc` files for more options.

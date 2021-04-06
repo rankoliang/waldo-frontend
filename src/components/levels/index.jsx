@@ -23,6 +23,21 @@ const useLevels = () => {
       .finally(() => {
         setLoading(false);
       });
+
+    const root = document.querySelector('.App');
+
+    const handleResize = () => {
+      root.style.minHeight = window.innerHeight + 'px';
+    };
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      root.style.height = 'initial';
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   return { levels, loading, error };

@@ -29,7 +29,7 @@ const Level = () => {
     window.addEventListener('resize', handleResize);
 
     return () => {
-      root.style.height = 'inherit';
+      root.style.height = 'initial';
       window.removeEventListener('resize', handleResize);
     };
   }, [dispatch]);

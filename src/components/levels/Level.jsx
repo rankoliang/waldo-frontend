@@ -18,11 +18,19 @@ const Level = () => {
   useEffect(() => {
     dispatch(gameStarted());
 
-    const htmlEl = document.querySelector('html');
-    htmlEl.style.overflow = 'hidden';
+    const root = document.querySelector('.App');
+
+    const handleResize = () => {
+      root.style.height = window.innerHeight + 'px';
+    };
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
 
     return () => {
-      htmlEl.style.overflow = 'inherit';
+      root.style.height = 'inherit';
+      window.removeEventListener('resize', handleResize);
     };
   }, [dispatch]);
 

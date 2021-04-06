@@ -47,15 +47,15 @@ const Levels = () => {
       <Footer className="mt-4">
         <Container>
           <Content style={{ textAlign: 'center' }}>
-            <p>
-              <div>
+            <div>
+              <p>
                 Made by <a href="https://github.com/rankoliang/">Ranko Liang</a>
                 .
-              </div>
-              <div>
+              </p>
+              <p>
                 <strong>Not an official Where's Waldo website.</strong>
-              </div>
-            </p>
+              </p>
+            </div>
           </Content>
         </Container>
       </Footer>

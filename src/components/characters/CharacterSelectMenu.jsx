@@ -4,6 +4,7 @@ import { menuHidden, useMenu } from '../../features/menu/menuSlice';
 import { searchForCharacter } from '../../features/searches/searchesSlice';
 import { selectLevel } from '../../features/game/gameSlice';
 import { Image } from 'react-bulma-components';
+import styles from './characters.module.css';
 
 const CharacterSelectMenu = ({ setError, scale = 1 }) => {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const CharacterSelectMenu = ({ setError, scale = 1 }) => {
 
   return (
     <div
-      className="dropdown-content character-select-menu"
+      className={`dropdown-content ${styles['character-select-menu']}`}
       style={{ top: y, left: x, transform: `scale(${1 / scale})` }}
     >
       {undiscoveredCharacters.map((character) => (

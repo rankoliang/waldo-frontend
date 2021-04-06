@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import styles from './levels.module.css';
 
 const LevelImage = ({ src, alt, handleClick, setMinScale, setTransform }) => {
   const [clickStart, setClickStart] = useState(null);
@@ -85,7 +86,7 @@ const LevelImage = ({ src, alt, handleClick, setMinScale, setTransform }) => {
 
   return (
     <img
-      className="level-image"
+      className={styles['level-image']}
       src={src}
       alt={alt}
       onLoad={handleOnLoad}

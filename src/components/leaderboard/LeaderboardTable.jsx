@@ -1,22 +1,23 @@
 import { Table, Container, Pagination } from 'react-bulma-components';
 import classNames from 'classnames';
+import styles from './leaderboard.module.css';
 
 const LeaderboardTable = ({ scores, page, pages, setPage, position }) => {
   return (
     <Container fluid>
       <Pagination
-        className="leaderboard__pagination"
+        className={styles.leaderboard__pagination}
         current={page}
         total={pages}
         delta={5}
         onChange={setPage}
       ></Pagination>
-      <Table className="leaderboard mb-4">
+      <Table className="mb-4">
         <thead>
           <tr>
-            <th className="min">Rank</th>
-            <th className="fill">Name</th>
-            <th className="min">Time</th>
+            <th className={styles.min}>Rank</th>
+            <th className={styles.fill}>Name</th>
+            <th className={styles.min}>Time</th>
           </tr>
         </thead>
         <tbody>
@@ -29,9 +30,9 @@ const LeaderboardTable = ({ scores, page, pages, setPage, position }) => {
                   'is-selected': rank === Number(position),
                 })}
               >
-                <th className="min">{rank}</th>
-                <td className="fill">{score.name}</td>
-                <td className="min">
+                <th className={styles.min}>{rank}</th>
+                <td className={styles.fill}>{score.name}</td>
+                <td className={styles.min}>
                   {(score.milliseconds / 1000).toFixed(2)} s
                 </td>
               </tr>

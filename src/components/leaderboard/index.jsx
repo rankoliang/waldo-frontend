@@ -6,6 +6,7 @@ import ErrorBoundary from '../ErrorBoundary';
 import LoadingHandler from '../LoadingHandler';
 import { Link } from 'react-router-dom';
 import LeaderboardTable from './LeaderboardTable';
+import styles from './leaderboard.module.css';
 
 const Leaderboard = () => {
   const { levelId } = useParams();
@@ -45,11 +46,11 @@ const Leaderboard = () => {
     <ErrorBoundary error={error}>
       <LoadingHandler loading={loading}>
         <Hero
-          className="leaderboard__title-background"
+          className={styles['leaderboard__title-background']}
           style={{ backgroundImage: `url(${level?.image_path})` }}
         >
           <Hero.Body>
-            <Container className="leaderboard__title">
+            <Container className={styles['leaderboard__title']}>
               <Heading>{level?.title}</Heading>
               <Heading subtitle size={3}>
                 Leaderboard

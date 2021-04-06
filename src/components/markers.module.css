@@ -1,0 +1,23 @@
+.marker {
+  position: absolute;
+  transition: opacity 0.2s;
+}
+
+.marker-success {
+  color: #005500;
+  z-index: 1;
+}
+
+.marker-success:hover {
+  opacity: 0.1;
+}
+
+.marker-failure {
+  pointer-events: none;
+  color: #aa0000;
+  opacity: 0.4;
+}
+
+.marker-failure:active {
+  pointer-events: none;
+}

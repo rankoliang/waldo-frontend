@@ -17,25 +17,6 @@ body,
   margin: 1em;
 }
 
-.scrollable-wrapper {
-  overflow: scroll;
-  position: relative;
-  height: 100%;
-}
-
-.scrollable-image {
-  transition: transform 0.3s;
-  vertical-align: bottom;
-  position: absolute;
-  transform-origin: top left;
-}
-
-.level-image {
-  overflow: visible;
-  object-fit: none;
-  pointer-events: auto !important;
-}
-
 .react-transform-component {
   width: initial !important;
   height: initial !important;
@@ -48,61 +29,5 @@ body,
 
 .progress-bar {
   margin: 1em 0;
-  width: 100%;
-}
-
-.marker {
-  position: absolute;
-  transition: opacity 0.2s;
-}
-
-.marker-success {
-  color: #005500;
-  z-index: 1;
-}
-
-.marker-success:hover {
-  opacity: 0.1;
-}
-
-.marker-failure {
-  pointer-events: none;
-  color: #aa0000;
-  opacity: 0.4;
-}
-
-.marker-failure:active {
-  pointer-events: none;
-}
-
-.character-select-menu {
-  background: white;
-  position: absolute;
-  transform-origin: top left;
-}
-
-.leaderboard__title {
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 1em;
-}
-
-.leaderboard__title-background {
-  background-position: center;
-}
-
-.leaderboard__title * {
-  color: white;
-}
-
-.leaderboard__pagination {
-  margin-top: 1em;
-}
-
-.min {
-  width: 5%;
-  white-space: nowrap;
-}
-
-.fill {
   width: 100%;
 }

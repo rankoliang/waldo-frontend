@@ -2,11 +2,12 @@ import { useSelector } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
 import { CgSearchFound } from 'react-icons/cg';
 import { selectSuccessfulSearches } from '../features/searches/searchesSlice';
+import styles from './markers.module.css';
 
 const SuccessMarker = ({ coord: { x, y }, height = 100, width = 100 }) => {
   return (
     <CgSearchFound
-      className="marker marker-success"
+      className={`${styles.marker} ${styles['marker-success']}`}
       style={{
         top: `${y - height / 2}px`,
         left: `${x - width / 2}px`,

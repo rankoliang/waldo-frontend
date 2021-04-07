@@ -38,6 +38,7 @@ const TransformableImage = ({
               scale={scale}
               onMouseEnter={() => setPanDisabled(true)}
               onMouseLeave={() => setPanDisabled(false)}
+              onClick={() => setPanDisabled(false)}
             />
           </TransformComponent>
           <CharactersInterface

@@ -24,6 +24,8 @@ const LevelImage = ({ src, alt, handleClick, setMinScale, setTransform }) => {
       nativeEvent: { clientX, clientY },
     } = event;
 
+    if (!clickStart) return;
+
     const distanceTraveled = Math.sqrt(
       (clickStart.clientX - clientX) ** 2 + (clickStart.clientY - clientY) ** 2
     );

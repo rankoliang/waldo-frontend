@@ -13,13 +13,14 @@ const TransformableImage = ({
   setError,
 }) => {
   const [minScale, setMinScale] = useState(undefined);
+  const [panDisabled, setPanDisabled] = useState(false);
 
   return (
     <TransformWrapper
       wheel={{ step: 175 }}
       options={{ minScale, centerContent: false }}
       doubleClick={{ disabled: true }}
-      pan={{ paddingSize: 3 }}
+      pan={{ disabled: panDisabled, paddingSize: 3 }}
     >
       {({ scale, zoomIn, zoomOut, setTransform }) => (
         <>
@@ -32,7 +33,12 @@ const TransformableImage = ({
               setTransform={setTransform}
             />
             {children}
-            <CharacterSelectMenu setError={setError} scale={scale} />
+            <CharacterSelectMenu
+              setError={setError}
+              scale={scale}
+              onMouseEnter={() => setPanDisabled(true)}
+              onMouseLeave={() => setPanDisabled(false)}
+            />
           </TransformComponent>
           <CharactersInterface
             zoomIn={zoomIn}

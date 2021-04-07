@@ -6,7 +6,7 @@ import { selectLevel } from '../../features/game/gameSlice';
 import { Image } from 'react-bulma-components';
 import styles from './characters.module.css';
 
-const CharacterSelectMenu = ({ setError, scale = 1 }) => {
+const CharacterSelectMenu = ({ setError, scale = 1, ...props }) => {
   const dispatch = useDispatch();
   const level = useSelector(selectLevel);
 
@@ -32,6 +32,7 @@ const CharacterSelectMenu = ({ setError, scale = 1 }) => {
     <div
       className={`dropdown-content ${styles['character-select-menu']}`}
       style={{ top: y, left: x, transform: `scale(${1 / scale})` }}
+      {...props}
     >
       {undiscoveredCharacters.map((character) => (
         <div

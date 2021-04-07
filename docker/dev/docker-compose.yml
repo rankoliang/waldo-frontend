@@ -37,7 +37,8 @@ services:
     ports:
       - "3000:3000"
     volumes: 
-      - ${CLIENT_PATH}:/waldo_client
+      - ${CLIENT_PATH}/src:/waldo_client/src
+      - ${CLIENT_PATH}/public:/waldo_client/public
     depends_on:
       - api
 volumes:

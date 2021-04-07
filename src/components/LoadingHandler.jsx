@@ -3,10 +3,7 @@ import BeatLoader from 'react-spinners/BeatLoader';
 const LoadingHandler = ({ loading, children }) => {
   if (loading) {
     return (
-      <div
-        style={{ width: '100%', height: '100%' }}
-        className="center-contents"
-      >
+      <div className="center-contents w-100 h-100">
         <BeatLoader color="#D82229" size={40} />
       </div>
     );

@@ -35,7 +35,7 @@ const useLevels = () => {
     window.addEventListener('resize', handleResize);
 
     return () => {
-      root.style.height = 'initial';
+      root.style.minHeight = '';
       window.removeEventListener('resize', handleResize);
     };
   }, []);

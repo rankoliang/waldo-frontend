@@ -36,8 +36,8 @@ const Leaderboard = () => {
       })
       .catch(setError)
       .finally(() => {
-        setLoading(false);
         clearTimeout(lbtimeout);
+        setLoading(false);
         setLeaderboardLoading(false);
       });
   }, [levelId, page]);

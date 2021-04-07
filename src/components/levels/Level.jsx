@@ -35,7 +35,7 @@ const Level = () => {
     window.addEventListener('resize', handleResize);
 
     return () => {
-      root.style.height = 'initial';
+      root.style.height = '';
       window.removeEventListener('resize', handleResize);
     };
   }, [dispatch]);

@@ -15,7 +15,10 @@ const LevelImage = ({ src, alt, handleClick, setMinScale, setTransform }) => {
     };
   }, []);
 
-  const handleMouseDown = ({ nativeEvent: { clientX, clientY } }) => {
+  const handleMouseDown = ({ nativeEvent }) => {
+    const { clientX, clientY } = nativeEvent;
+    nativeEvent.preventDefault();
+
     setClickStart({ clientX, clientY });
   };
 
@@ -94,6 +97,7 @@ const LevelImage = ({ src, alt, handleClick, setMinScale, setTransform }) => {
       onLoad={handleOnLoad}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
+      draggable={false}
     />
   );
 };

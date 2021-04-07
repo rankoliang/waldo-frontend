@@ -8,6 +8,12 @@ import LoadingHandler from '../LoadingHandler';
 import { charactersSet } from '../../features/characters/charactersSlice';
 import { levelSet, gameStarted, tokenSet } from '../../features/game/gameSlice';
 
+const loadImage = (src, onload) => {
+  const image = new Image();
+  image.onload = onload;
+  image.src = src;
+};
+
 const Level = () => {
   const { levelId } = useParams();
   const dispatch = useDispatch();
@@ -40,10 +46,13 @@ const Level = () => {
         dispatch(levelSet(level));
         dispatch(charactersSet(characters));
         dispatch(tokenSet({ token }));
+        loadImage(level.image_path, () => {
+          setLoading(false);
+        });
         return level;
       })
-      .catch(setError)
-      .finally(() => {
+      .catch((error) => {
+        setError(error);
         setLoading(false);
       });
   }, [levelId, dispatch]);

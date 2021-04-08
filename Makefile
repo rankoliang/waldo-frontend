@@ -32,3 +32,8 @@ down:
 
 issue_ssl:
 	bin/dc -p run certbot certonly --webroot --webroot-path=/var/www/html --email $(EMAIL) --agree-tos --no-eff-email --force-renewal -d waldo.rankoliang.com
+.PHONY: issue_ssl
+
+stage_issue_ssl:
+	bin/dc -p run certbot certonly --webroot --webroot-path=/var/www/html --email $(EMAIL) --agree-tos --no-eff-email --staging -d waldo.rankoliang.com
+.PHONY: stage_issue_ssl

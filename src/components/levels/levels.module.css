@@ -3,3 +3,24 @@
   object-fit: none;
   pointer-events: auto !important;
 }
+
+.spinnerWrapper {
+  padding: 37.5% 0;
+}
+
+.spinnerWrapper > span {
+  position: absolute;
+}
+
+.levelsColumns {
+  display: flex;
+  justify-content: center;
+  max-width: 1800px;
+  margin: 0 auto;
+}
+
+.levelsColumnsItem {
+  flex-basis: 800px;
+  max-width: 800px;
+  flex-grow: 0;
+}

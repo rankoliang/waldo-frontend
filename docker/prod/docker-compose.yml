@@ -46,7 +46,6 @@ services:
       - web-root:/var/www/html
     depends_on:
       - web
-    command: certonly --webroot --webroot-path=/var/www/html --email ${EMAIL} --agree-tos --no-eff-email --force-renewal -d waldo.rankoliang.com
 volumes:
   web-root:
   certbot-etc:

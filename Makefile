@@ -29,3 +29,6 @@ up:
 down:
 	bin/dc down
 .PHONY: down
+
+issue_ssl:
+	bin/dc -p run certbot certonly --webroot --webroot-path=/var/www/html --email $(EMAIL) --agree-tos --no-eff-email --force-renewal -d waldo.rankoliang.com

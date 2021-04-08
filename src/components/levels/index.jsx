@@ -1,19 +1,10 @@
-import {
-  Button,
-  Card,
-  Container,
-  Columns,
-  Footer,
-  Content,
-} from 'react-bulma-components';
-import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { Container, Columns, Footer, Content } from 'react-bulma-components';
 import { fetchLevels } from '../../helpers';
 import ErrorBoundary from '../ErrorBoundary';
 import LoadingHandler from '../LoadingHandler';
-import LoadableImage from '../LoadableImage';
-import BeatLoader from 'react-spinners/BeatLoader';
 import styles from './levels.module.css';
+import LevelCard from './LevelCard';
 
 const useLevels = () => {
   const [loading, setLoading] = useState(true);
@@ -74,7 +65,10 @@ const Levels = () => {
           <Content style={{ textAlign: 'center' }}>
             <div>
               <p>
-                Made by <a href="https://github.com/rankoliang/">Ranko Liang</a>
+                Made by{' '}
+                <a href="https://github.com/rankoliang/waldo-frontend">
+                  Ranko Liang
+                </a>
                 .
               </p>
               <p>
@@ -85,48 +79,6 @@ const Levels = () => {
         </Container>
       </Footer>
     </>
-  );
-};
-
-const LevelCard = ({ level: { id, title, image_path } }) => {
-  return (
-    <Card>
-      <Link to={`/levels/${id}`}>
-        <LoadableImage
-          src={image_path}
-          alt={title}
-          renderAs={Card.Image}
-          renderSpinnerAs={BeatLoader}
-          spinner={{ size: 40 }}
-        />
-      </Link>
-      <Card.Header>
-        <Card.Header.Title className="is-centered">{title}</Card.Header.Title>
-      </Card.Header>
-      <Card.Footer>
-        <Card.Footer.Item
-          renderAs={ButtonLink}
-          color="primary"
-          to={`/levels/${id}`}
-        >
-          Play
-        </Card.Footer.Item>
-        <Card.Footer.Item
-          renderAs={ButtonLink}
-          to={`/levels/${id}/leaderboard`}
-        >
-          Leaderboard
-        </Card.Footer.Item>
-      </Card.Footer>
-    </Card>
-  );
-};
-
-const ButtonLink = ({ children, ...props }) => {
-  return (
-    <Button renderAs={Link} {...props}>
-      {children}
-    </Button>
   );
 };
 

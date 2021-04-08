@@ -3,3 +3,8 @@
   position: absolute;
   transform-origin: top left;
 }
+
+.characterLoading {
+  width: 48px;
+  height: 48px;
+}

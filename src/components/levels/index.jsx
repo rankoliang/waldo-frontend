@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { fetchLevels } from '../../helpers';
 import ErrorBoundary from '../ErrorBoundary';
 import LoadingHandler from '../LoadingHandler';
+import LoadableImage from '../LoadableImage';
 import BeatLoader from 'react-spinners/BeatLoader';
 import styles from './levels.module.css';
 
@@ -88,20 +89,16 @@ const Levels = () => {
 };
 
 const LevelCard = ({ level: { id, title, image_path } }) => {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const image = new Image();
-    image.onload = () => {
-      setLoading(false);
-    };
-    image.src = image_path;
-  }, []);
-
   return (
     <Card>
       <Link to={`/levels/${id}`}>
-        <LoadableImage src={image_path} alt={title} loading={loading} />
+        <LoadableImage
+          src={image_path}
+          alt={title}
+          renderAs={Card.Image}
+          renderSpinnerAs={BeatLoader}
+          spinner={{ size: 40 }}
+        />
       </Link>
       <Card.Header>
         <Card.Header.Title className="is-centered">{title}</Card.Header.Title>
@@ -123,18 +120,6 @@ const LevelCard = ({ level: { id, title, image_path } }) => {
       </Card.Footer>
     </Card>
   );
-};
-
-const LoadableImage = ({ loading, src, ...props }) => {
-  if (loading) {
-    return (
-      <div className={`center-contents ${styles.spinnerWrapper}`}>
-        <BeatLoader color="#D82229" size={40} />
-      </div>
-    );
-  } else {
-    return <Card.Image src={src} {...props} />;
-  }
 };
 
 const ButtonLink = ({ children, ...props }) => {

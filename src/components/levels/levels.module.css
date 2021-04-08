@@ -4,14 +4,6 @@
   pointer-events: auto !important;
 }
 
-.spinnerWrapper {
-  padding: 37.5% 0;
-}
-
-.spinnerWrapper > span {
-  position: absolute;
-}
-
 .levelsColumns {
   display: flex;
   justify-content: center;

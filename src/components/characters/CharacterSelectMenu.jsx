@@ -5,6 +5,8 @@ import { searchForCharacter } from '../../features/searches/searchesSlice';
 import { selectLevel } from '../../features/game/gameSlice';
 import { Image } from 'react-bulma-components';
 import styles from './characters.module.css';
+import BounceLoader from 'react-spinners/BounceLoader';
+import LoadableImage from '../LoadableImage';
 
 const CharacterSelectMenu = ({ setError, scale = 1, ...props }) => {
   const dispatch = useDispatch();
@@ -40,7 +42,16 @@ const CharacterSelectMenu = ({ setError, scale = 1, ...props }) => {
           onClick={createHandleOnClick(character)}
           key={character.id}
         >
-          <Image src={character.avatar_path} size={48} />
+          <LoadableImage
+            src={character.avatar_path}
+            renderAs={Image}
+            renderSpinnerAs={BounceLoader}
+            spinner={{
+              wrapper: { className: styles.characterLoading },
+              size: 48,
+            }}
+            size={48}
+          />
         </div>
       ))}
     </div>
